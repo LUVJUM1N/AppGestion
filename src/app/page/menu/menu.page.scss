@@ -1,0 +1,300 @@
+:root {
+  --app-primary: #2563eb;
+  --app-primary-dark: #1e40af;
+  --app-background: #f6f9ff;
+  --text-dark: #0b2440;
+  --text-muted: #99ca1;
+  --card-shadow: 0 8px 20px rgba(170, 188, 226, 0.08);
+  --blue-50: #e0e7ff;
+  /* azul muy claro, visible sobre blanco */
+}
+
+ion-header {
+  ion-toolbar {
+    --background: var(--app-background);
+    padding: 0 16px;
+  }
+
+  .main-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--app-primary-dark);
+    padding-left: 0;
+  }
+
+  .user-avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 2px solid rgba(37, 99, 235, 0.1);
+  }
+}
+
+ion-content.main-content {
+  --background: var(--app-background);
+}
+
+.content-wrapper {
+  padding: 16px;
+}
+
+.section-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-top: 20px;
+  margin-bottom: 15px;
+}
+
+/* Search Bar */
+.search-bar-container {
+  margin-bottom: 15px;
+}
+
+.custom-searchbar {
+  --background: #c7cacd;
+  --border-radius: 14px;
+  box-shadow: var(--card-shadow);
+  padding: 0;
+}
+
+/* Categories */
+.categories-section {
+  margin-bottom: 20px;
+}
+
+.categories-scroll {
+  display: flex;
+  overflow-x: auto;
+  gap: 12px;
+  padding-bottom: 8px;
+  /* Espacio para la sombra del scroll */
+  -webkit-overflow-scrolling: touch;
+
+  /* Para un scroll suave en iOS */
+  &::-webkit-scrollbar {
+    display: none;
+    /* Oculta la barra de scroll */
+  }
+}
+
+.category-item {
+  flex-shrink: 0;
+  width: 80px;
+  text-align: center;
+  background-color: #efeff54b; //sombras de fondo de icons categoría
+  border-radius: 12px;
+  padding: 10px 0;
+  box-shadow: var(--card-shadow);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  border: 1px solid rgba(37, 99, 235, 0.06);
+
+  .icon-box {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    background-color: #c2c2d2; /* Icons de categorías */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    ion-icon {
+      font-size: 22px;
+      color: var(--app-primary);
+    }
+  }
+
+  span {
+    font-size: 12px;
+    color: var(--text-dark);
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+
+  &.active {
+    background: linear-gradient(180deg, var(--app-primary-dark), var(--app-primary));
+
+    .icon-box {
+      background-color: rgb(63, 47, 139);//icon seleccionado categoría
+
+      ion-icon {
+        color: #ffffff;
+      }
+    }
+
+    span {
+      color: #000000;
+    }
+  }
+}
+
+/* Customize Section */
+.custom-card {
+  --background: linear-gradient(90deg, var(--app-primary-dark) 0%, var(--app-primary) 100%);
+  border-radius: 15px;
+  box-shadow: 0 15px 30px rgba(18, 59, 132, 0.15);
+  margin: 0;
+  /* Eliminar margen por defecto de ion-card */
+  padding: 20px;
+  color: rgb(63, 47, 139);
+
+  .subtitle {
+    font-size: 13px; //Crea
+    opacity: 0.9;
+    margin: 0;
+  }
+
+  h3 {
+    font-size: 22px;
+    font-weight: 700;
+    margin: 8px 0;
+    color: rgb(18, 60, 132);
+  }
+
+  .description {
+    font-size: 14px;
+    opacity: 0.9;
+    margin: 0;
+  }
+}
+
+/* Popular Section */
+.product-grid {
+  padding: 0;
+}
+
+.product-card {
+  margin: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+  background-color: #ffffff;
+
+  .product-image {
+    height: 120px;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .product-info {
+    padding: 10px;
+
+    .product-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin: 0 0 8px;
+    }
+
+    .product-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .product-price {
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--app-primary-dark);
+      }
+
+      .add-btn {
+        --background: var(--app-primary);
+        --border-radius: 8px;
+        height: 32px;
+        width: 32px;
+        color: #0b2440;
+        
+        ion-icon {
+          font-size: 18px;
+        }
+      }
+    }
+  }
+}
+
+/* Footer Navigation */
+ion-footer {
+  ion-toolbar {
+    --background: #ffffff;
+    padding: 0;
+  }
+
+  .bottom-nav {
+    --background: #ffffff;
+    box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.05);
+    padding: 5px 0;
+  }
+
+  ion-tab-button {
+    --color: var(--text-muted);
+    --color-selected: var(--app-primary);
+    flex-direction: column;
+
+    ion-icon {
+      font-size: 22px;
+      margin-bottom: 2px;
+      
+    }
+
+    ion-label {
+      font-size: 11px;
+      margin-top: 0;
+      
+    }
+
+    ion-badge {
+      position: absolute;
+      top: 5px;
+      right: 10px;
+      font-size: 9px;
+      padding: 3px 6px;
+    }
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 380px) {
+  .category-item {
+    width: 70px;
+  }
+
+  .category-item .icon-box {
+    width: 40px;
+    height: 40px;
+  }
+
+  .category-item ion-icon {
+    font-size: 20px;
+  }
+
+  .category-item span {
+    font-size: 11px;
+  }
+
+  .product-image {
+    height: 100px;
+  }
+
+  .custom-card {
+    padding: 15px;
+  }
+
+  .custom-card h3 {
+    font-size: 20px;
+  }
+
+  .custom-card .description {
+    font-size: 13px;
+  }
+}

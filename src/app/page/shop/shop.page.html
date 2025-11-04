@@ -1,0 +1,71 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+
+    <ion-title>Carrito</ion-title>
+    <!-- botón con el avatar de perfil -->
+    <ion-buttons slot="end">
+      <ion-avatar>
+        <img src="./assets/icon/perfil.png"><!-- imagen del avatar -->
+      </ion-avatar>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+   <ion-list>
+    <ion-item class="producto-item" *ngFor="let item of items">
+      <!-- item del producto -->
+      <ion-thumbnail slot="start">
+        <img [src]="item.image">
+      </ion-thumbnail>
+
+      <ion-label>
+        <h3>{{ item.name }}</h3> <!-- nombre del producto -->
+        <p>S/. {{ item.price | number: '1.2-2' }}</p> <!-- precio del producto -->
+        <div class="quantity-controls">
+          <ion-icon name="add-circle-outline"></ion-icon>
+          <span>1</span>
+          <ion-icon name="remove-circle-outline"></ion-icon>
+        </div>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-item>
+    <ion-label>Descripción</ion-label>
+  </ion-item>
+
+  <!-- Total del carrito -->
+  <ion-item class="total-summary">
+    <ion-label>
+      <h2 class="total-label">Monto Total</h2>
+    </ion-label>
+    <ion-label slot="end" class="total-amount">
+      S/. {{ totalAmount | number: '1.2-2' }}
+    </ion-label>
+  </ion-item>
+</ion-content>
+
+<!-- Botones de acción -->
+<ion-footer class="ion-no-border">
+  <div class="footer-actions">
+    <ion-button expand="full" size="large" class="pay-button" (click)="goToPayment()">
+      Pagar
+    </ion-button>
+  </div>
+
+  <!-- Barra de navegación inferior -->
+  <ion-toolbar>
+    <ion-tab-bar class="bottom-nav">
+      <ion-tab-button *ngFor="let item of navItems"
+                      (click)="navigate(item.route)"
+                      [class.active]="item.route === activeRoute"
+                      [routerLink]="item.route">
+        <ion-icon [name]="item.icon"></ion-icon>
+        <ion-label *ngIf="item.label">{{ item.label }}</ion-label>
+        <ion-badge *ngIf="item.badge" color="danger">{{ item.badge }}</ion-badge>
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-toolbar>
+</ion-footer>
+

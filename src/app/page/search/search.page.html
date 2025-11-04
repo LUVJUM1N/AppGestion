@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/menu"></ion-back-button>
+    </ion-buttons>
+    <ion-title src="assets/ion-icon/lupa.png">Buscar</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<!-- Barra de navegación inferior -->
+<ion-footer class="ion-no-border">
+    <ion-toolbar>
+    <ion-tab-bar class="bottom-nav">
+      <ion-tab-button *ngFor="let item of navItems"
+                      (click)="navigate(item.route)"
+                      [class.active]="item.route === activeRoute"
+                      [routerLink]="item.route">
+        <ion-icon [name]="item.icon"></ion-icon>
+        <ion-label *ngIf="item.label">{{ item.label }}</ion-label>
+        <ion-badge *ngIf="item.badge" color="danger">{{ item.badge }}</ion-badge>
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-toolbar>
+</ion-footer>
+
+<ion-content class="ion-padding">
+  <div class="search-bar-container">
+    <ion-searchbar placeholder="Buscar productos..." mode="ios" 
+      class="custom-searchbar">
+    </ion-searchbar>
+  </div>
+</ion-content>
+
+

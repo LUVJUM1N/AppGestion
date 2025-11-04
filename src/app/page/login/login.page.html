@@ -1,0 +1,45 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title>Gestion</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="login-page" fullscreen>
+  <div class="center-box">
+    <ion-card class="login-card">
+      <div class="logo">
+        <ion-icon name="person-circle-outline" size="large"></ion-icon>
+      </div>
+
+      <ion-card-header>
+        <ion-card-title>Iniciar sesión</ion-card-title>
+        <ion-card-subtitle>Accede a tu cuenta</ion-card-subtitle>
+      </ion-card-header>
+
+      <ion-card-content>
+        <ion-item lines="full" class="input-item">
+          <ion-label position="stacked">Correo</ion-label>
+          <ion-input [(ngModel)]="email" type="email" placeholder="usuario@ejemplo.com"></ion-input>
+        </ion-item>
+
+        <ion-item lines="full" class="input-item">
+          <ion-label position="stacked">Contraseña</ion-label>
+          <ion-input [(ngModel)]="password" type="password" placeholder="Contraseña" autocomplete="current-password"></ion-input>
+        </ion-item>
+
+        <div class="actions">
+          <ion-button class="enter-btn" expand="block" color="primary" (click)="login(email, password)">
+            Entrar
+          </ion-button>
+        </div>
+
+        <ion-text color="danger" *ngIf="mensaje" class="message">{{ mensaje }}</ion-text>
+        <ion-text color="success" *ngIf="success" class="message">{{ success }}</ion-text>
+
+        <ion-text style="display:block; text-align:center; margin-top: 10px;">
+          ¿No tienes cuenta? <a routerLink="/register">Regístrate</a>
+        </ion-text>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>
