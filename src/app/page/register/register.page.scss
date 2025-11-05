@@ -71,15 +71,15 @@ ion-card-subtitle {
   font-size: 13px;
   color: var(--muted-blue);
 }
-
+// color para las letras dentro del input registro
 .input-item ion-input {
   padding: 6px 0;
-  color: #07203b;
+  color: #abacad;
 }
 
 .input-item ion-item { 
   --background: transparent;
-  --border-color: rgba(37,99,235,0.08);
+  --border-color: rgba(172, 172, 172, 0.08);
 }
 
 .actions {
