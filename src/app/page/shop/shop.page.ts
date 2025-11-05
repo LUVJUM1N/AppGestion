@@ -5,18 +5,18 @@ import { Router, RouterModule } from '@angular/router'; // Importar Router y Rou
 
 // Importar los iconos necesarios para la barra de navegación
 import { addIcons } from 'ionicons';
-import { 
+import {
   homeOutline, searchOutline, cartOutline, personOutline, // Iconos para la barra de navegación
   addCircleOutline, removeCircleOutline // Iconos existentes para cantidad
 } from 'ionicons/icons';
 
 // Registrar los iconos (esto está fuera del bloque de importaciones del componente)
-addIcons({ 
+addIcons({
   homeOutline, searchOutline, cartOutline, personOutline,
   addCircleOutline, removeCircleOutline // Asegúrate de registrar los iconos existentes también
 });
 
-import { 
+import {
   IonContent, //contenedor principal
   IonHeader, //cabecera
   IonTitle,  //titulo
@@ -31,7 +31,7 @@ import {
   IonTabButton,  // 
   IonIcon,       // 
   IonButton,     // 
-  IonLabel, 
+  IonLabel,
   IonFooter,
   IonBadge // Importar IonBadge
 } from '@ionic/angular/standalone';
@@ -42,13 +42,13 @@ import {
   styleUrls: ['./shop.page.scss'], // Ruta al archivo SCSS
   standalone: true,
   imports: [
-    IonContent, 
-    IonHeader, 
-    IonTitle, 
-    IonToolbar, 
+    IonContent,
+    IonHeader,
+    IonTitle,
+    IonToolbar,
     IonButtons, // para poder usar botones
     IonAvatar,  // para poder usar avatar
-    CommonModule, 
+    CommonModule,
     FormsModule,  //formulario
     IonList,    // para poder usar listas
     IonItem,    // para poder usar items de la lista
@@ -67,10 +67,10 @@ import {
 export class ShopPage implements OnInit {
 
   // lista de productos en el carrito ejemplo
-  items = [
-    { name: 'Eje de acero', price: 101, image: 'assets/icon/eje acero.png', quantity: 3 },
-    { name: 'Engranaje', price: 50, image: 'assets/icon/engranaje.png', quantity: 1 },
-    { name: 'Motor eléctrico', price: 250, image: 'assets/icon/motor.png', quantity: 1 },
+  items: any[] = [
+    { id: 1, name: 'Eje de acero', price: 101, image: 'assets/icon/eje acero.png', quantity: 3 },
+    { id: 2, name: 'Engranaje', price: 50, image: 'assets/icon/engranaje.png', quantity: 2 },
+    { id: 3, name: 'Motor eléctrico', price: 250, image: 'assets/icon/motor-electrico.png', quantity: 1 },
   ];
 
   // monto total del carrito
@@ -88,34 +88,74 @@ export class ShopPage implements OnInit {
   constructor(private router: Router) { } // Inyectar el Router
 
   ngOnInit() {
+    try {
+      const raw = localStorage.getItem('cart');
+      if (raw) {
+        this.items = JSON.parse(raw);
+      }
+    } catch (e) {
+      console.warn('Error leyendo carrito de localStorage', e);
+    }
+    //this.calculateTotal();
+    //this.activeRoute = this.router.url;
+    const nav = (this.router.getCurrentNavigation?.() as any) ?? null;//entregar producto
+    const added = nav?.extras?.state?.product ?? null;
+
+    if (added) {
+      const existing = this.items.find(i => (i.id && added.id && i.id === added.id) || i.name === added.name);
+      const addQty = Number(added.quantity ?? 1);
+      if (existing) {
+        existing.quantity = (Number(existing.quantity) || 0) + addQty;
+      } else {
+        this.items.push({
+          id: added.id ?? (this.items.length ? Math.max(...this.items.map(i => Number(i.id) || 0)) + 1 : 1),
+          name: added.name,
+          price: Number(added.price) || 0,
+          image: added.image || 'assets/icon/default.png',
+          quantity: addQty
+        });
+      }
+      // guardar cambios en localStorage
+      this.saveCart();
+    }
+
+    // calcular total y actualizar ruta activa
     this.calculateTotal();
-    // Obtener la ruta actual para que el botón activo del footer coincida
-    this.activeRoute = this.router.url; 
+    this.activeRoute = this.router.url;
   }
 
   increaseQuantity(item: any) {
-    item.quantity++;
+    item.quantity = Number(item.quantity) + 1;
     this.calculateTotal();
+    this.saveCart();
   }
 
   decreaseQuantity(item: any) {
-    if (item.quantity > 1) {
-      item.quantity--;
-      this.calculateTotal();
-    }
+    item.quantity = Math.max(1, Number(item.quantity) - 1);
+    this.calculateTotal();
+    this.saveCart();
   }
 
   calculateTotal() {
-    this.totalAmount = this.items.reduce(
-      (acc, item) => acc + item.price * item.quantity,
-      0
-    );
+    this.totalAmount = this.items.reduce((acc, item) => {
+      const price = Number(item.price) || 0;
+      const qty = Number(item.quantity) || 0;
+      return acc + price * qty;
+    }, 0);
+    this.totalAmount = Math.round(this.totalAmount * 100) / 100; // Redondear a 2 decimales
+  }
+  saveCart() {
+    try {
+      localStorage.setItem('cart', JSON.stringify(this.items));
+    } catch (e) {
+      console.warn('No se pudo guardar el carrito', e);
+    }
   }
 
   goToPayment() {
     console.log('Ir a la página de pago');
     // Navegación real
-    this.router.navigateByUrl('/payment'); 
+    this.router.navigateByUrl('/payment');
   }
 
   // Método para la navegación de la barra inferior 
@@ -124,8 +164,8 @@ export class ShopPage implements OnInit {
     console.log('Navegando a:', route);
     this.router.navigateByUrl(route);
   }
-goBackToMenu() {
-  this.router.navigateByUrl('/menu');
-}
+  goBackToMenu() {
+    this.router.navigateByUrl('/menu');
+  }
 
 }

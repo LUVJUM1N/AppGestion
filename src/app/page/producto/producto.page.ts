@@ -31,6 +31,28 @@ export class ProductoPage implements OnInit {
     this.product = nav?.extras?.state?.product ?? { id: this.id, nombre: 'Producto demo',price:0 };
     console.log('Producto cargado:', this.product);
   }
+
+  addToShop(product: any) {
+    if (!product) return;
+    //this.router.navigate(['/shop'], { state: { product } });
+
+    try {
+      const raw = localStorage.getItem('cart');
+      const cart = raw ? JSON.parse(raw) : [];
+      // buscar por id o por name como fallback
+      const existing = cart.find((p: any) => (p.id && product.id && p.id === product.id) || p.name === product.name);
+      if (existing) {
+        existing.quantity = (Number(existing.quantity) || 0) + (Number(product.quantity) || 1);
+      } else {
+        cart.push({ ...product, quantity: Number(product.quantity) || 1 });
+      }
+      localStorage.setItem('cart', JSON.stringify(cart));
+    } catch (e) {
+      console.warn('No se pudo guardar el carrito en localStorage', e);
+    }
+
+    this.router.navigate(['/shop']);
+  }
   regresarMenu() {
     this.router.navigate(['/menu']);
   }

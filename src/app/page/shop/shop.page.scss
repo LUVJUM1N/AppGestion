@@ -110,13 +110,19 @@ ion-content {
 ================================ */
 .footer-actions {
    padding-top: 8px;
+   display: flex;
+    justify-content: center;
+    border-radius: 12px;
 
   .pay-button {
-    --background: var(--ion-color-primary);
+    --background: linear-gradient(to right, #151277, #6a5acd);
     --border-radius: 12px;
     font-weight: 600;
     text-transform: uppercase;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+    box-shadow: 10px 3px 10px rgba(0, 0, 0, 0.15);
+    
+    width: calc(70% - 30px);
+      
   }
 }
 
