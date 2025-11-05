@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
@@ -40,7 +40,8 @@ addIcons({
     ]
 })
 export class MenuPage implements OnInit {
-
+    
+    id:number | string='';
     selectedCategory: string = 'TODO';
     activeRoute: string = '/menu';
 
@@ -50,7 +51,7 @@ export class MenuPage implements OnInit {
         { title: 'SISTEMA DE TRANSMISIÓN', icon: 'cog-outline' },
         { title: 'ACERO Y ESTRUCTURA', icon: 'layers-outline' }
     ];
-
+// PRODUCTOS EN CATEGORÍA TODO
     allPopularItems = [
         {
             name: 'Eje de acero',
@@ -77,7 +78,7 @@ export class MenuPage implements OnInit {
             category: 'PIEZAS INDUSTRIALES'
         }
     ];
-
+// NAVEGAR POR CATEGORÍA
     navItems = [
         { icon: 'home-outline', label: 'Inicio', route: '/menu' },
         { icon: 'search-outline', label: 'Buscar', route: '/search' },
@@ -85,7 +86,8 @@ export class MenuPage implements OnInit {
         { icon: 'person-outline', label: 'Perfil', route: '/profile' }
     ];
 
-    constructor(private router: Router) { }
+    constructor(private router: Router) {
+        addIcons({addOutline}); }
 
     ngOnInit() {
         this.activeRoute = this.router.url;
@@ -114,6 +116,10 @@ export class MenuPage implements OnInit {
 
     addToCart(product: any) {
         console.log('Añadir al carrito:', product.name);
+    }
+    goToProduct(id:number){
+        // console.log(' Clic en producto con ID:', id);
+        this.router.navigateByUrl('/producto/' + id);
     }
 
     navigate(route: string) {

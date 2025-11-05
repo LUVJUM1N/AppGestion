@@ -20,10 +20,8 @@
         <!-- Categorías -->
         <div class="categories-section">
             <div class="categories-scroll">
-                <div class="category-item" 
-                     *ngFor="let cat of categories" 
-                     (click)="selectCategory(cat.title)" 
-                     [class.active]="cat.title === selectedCategory">
+                <div class="category-item" *ngFor="let cat of categories" (click)="selectCategory(cat.title)"
+                    [class.active]="cat.title === selectedCategory">
                     <div class="icon-box">
                         <ion-icon [name]="cat.icon"></ion-icon>
                     </div>
@@ -53,13 +51,15 @@
                     <ion-col size="6" *ngFor="let product of filteredItems">
                         <ion-card class="product-card">
                             <div class="product-image">
-                                <!-- Colocar imágenes del producto -->
-                                <img [src]="product.image" [alt]="product.name" loading="lazy" />
+                                <!-- Colocar imágenes del producto --> 
+                                 <!-- AÑADIR RUTA PARA VER DESCRIPCIÓN PRODUCTO -->
+                                <img [src]="product.image" [alt]="product.name" loading="lazy" /> 
                             </div>
                             <div class="product-info">
                                 <p class="product-name">{{ product.name }}</p>
                                 <div class="product-actions">
                                     <span class="product-price">S/. {{ product.price }}</span>
+                                    <!-- BOTÓN PARA AÑADIR PRODUCTO AL CARRITO -->
                                     <ion-button fill="solid" size="small" class="add-btn" (click)="addToCart(product)">
                                         <!-- Usamos add-outline para coincidir con la importación en TS -->
                                         <ion-icon name="add-outline"></ion-icon>
