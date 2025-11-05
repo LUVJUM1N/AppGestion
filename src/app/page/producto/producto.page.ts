@@ -30,7 +30,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar,
-  IonButtons, IonButton, IonRouterLink, IonIcon, IonImg
+  IonButton, IonIcon, IonImg
  } from '@ionic/angular/standalone';
 import { ActivatedRoute, Router } from '@angular/router'; // Necesitas importar 'ActivatedRoute'
 
@@ -40,12 +40,12 @@ import { ActivatedRoute, Router } from '@angular/router'; // Necesitas importar 
   styleUrls: ['./producto.page.scss'],
   standalone: true,
   imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule,
-    IonButtons, IonButton, IonRouterLink, IonIcon, IonImg
+    IonButton, IonIcon, IonImg
   ]
 })
 export class ProductoPage implements OnInit {
    id: number | null = null; 
-  constructor(private activatedRoute: ActivatedRoute, private router:Router) {
+  constructor(private router:Router,private activatedRoute: ActivatedRoute) {
     
   }
 
@@ -66,13 +66,10 @@ export class ProductoPage implements OnInit {
     });
   }
 
-
-  regresarMenu() {
-    this.router.navigate(['/menu']); 
+  regresarMenu(){
+    this.router.navigate(['/menu']);
   }
   irAlCarrito(){
-    this.router.navigate(['/shop']); 
-
+    this.router.navigate(['/menu']);
   }
-
 }

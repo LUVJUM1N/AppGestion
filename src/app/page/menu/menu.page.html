@@ -53,7 +53,7 @@
                             <div class="product-image">
                                 <!-- Colocar imágenes del producto --> 
                                  <!-- AÑADIR RUTA PARA VER DESCRIPCIÓN PRODUCTO -->
-                                <img [src]="product.image" [alt]="product.name" loading="lazy" /> 
+                                <img [src]="product.image" [alt]="product.name" loading="lazy" (click)="goToProduct(product.id)" /> 
                             </div>
                             <div class="product-info">
                                 <p class="product-name">{{ product.name }}</p>
