@@ -1,19 +1,17 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>perfil</ion-title>
-     <ion-buttons slot="end">
-            <!-- Usa ion-avatar con la imagen de perfil -->
-            <ion-avatar class="user-avatar" (click)="openProfile()">
-                <img src="./assets/icon/perfil.png" alt="perfil">
-            </ion-avatar>
-        </ion-buttons>
+    <ion-title class="main-title">Perfil</ion-title>
+    <ion-buttons slot="end">
+      <ion-avatar class="user-avatar" (click)="openProfile()">
+        <img src="./assets/icon/perfil.png" alt="perfil">
+      </ion-avatar>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" class="ion-padding">
+<ion-content [fullscreen]="true" class="main-content">
   <div class="perfil-container">
-    <h2>Bienvenido a tu perfil</h2>
-    <br>
+    <h2>Bienvenido, {{ user.name }}</h2>
     <p>Aquí puedes ver y editar tu información personal.</p>
     
     <div class="profile-card">
@@ -24,7 +22,9 @@
       <p>{{ user.email }}</p>
       <p>{{ user.phone }}</p>
     </div>  
-       <ion-button expand="full" color="primary" (click)="editProfile()">
+
+    <div class="actions">
+      <ion-button expand="full" color="primary" (click)="editProfile()">
         Editar Perfil
       </ion-button>
       <ion-button expand="full" color="secondary" (click)="changePassword()">
@@ -33,29 +33,21 @@
       <ion-button expand="full" color="danger" (click)="logout()">
         Cerrar Sesión
       </ion-button>
-    <div>
-
-
     </div>
   </div>
 </ion-content>
-  
 
-
-<!-- Navegación Inferior (Footer) -->
-<ion-footer class="ion-no-border">
-    <ion-toolbar>
-        <ion-tab-bar class="bottom-nav">
-            <ion-tab-button *ngFor="let item of navItems" 
-                            (click)="navigate(item.route)" 
-                            [class.active]="item.route === activeRoute"
-                            [routerLink]="item.route">
-                <ion-icon [name]="item.icon"></ion-icon>
-                <!-- Solo mostramos la etiqueta para claridad en el código, pero se oculta por SCSS -->
-                <ion-label *ngIf="item.label">{{ item.label }}</ion-label> 
-                <ion-badge *ngIf="item.badge" color="danger">{{ item.badge }}</ion-badge>
-            </ion-tab-button>
-        </ion-tab-bar>
-    </ion-toolbar>
+<ion-footer>
+  <ion-toolbar>
+    <ion-tab-bar class="bottom-nav">
+      <ion-tab-button *ngFor="let item of navItems" 
+                      (click)="navigate(item.route)" 
+                      [class.active]="item.route === activeRoute"
+                      [routerLink]="item.route">
+        <ion-icon [name]="item.icon"></ion-icon>
+        <ion-label *ngIf="item.label">{{ item.label }}</ion-label> 
+        <ion-badge *ngIf="item.badge" color="danger">{{ item.badge }}</ion-badge>
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-toolbar>
 </ion-footer>
-
