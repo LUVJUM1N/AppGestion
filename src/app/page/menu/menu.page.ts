@@ -110,7 +110,7 @@ export class MenuPage implements OnInit {
     openProfile() {
         console.log('Abrir perfil');
     }
-    
+
     openCustom() {
         console.log('Abrir sección de personalización');
     }
@@ -118,8 +118,9 @@ export class MenuPage implements OnInit {
     addToCart(product: any) {
         console.log('Añadir al carrito:', product.name);
     }
-    goToProduct(id: number) {
-        this.router.navigateByUrl('/producto/' + id); 
+    goToProduct() {
+        // this.router.navigateByUrl('Ver producto'); 
+        this.router.navigate(['/producto']);
     }
 
     navigate(route: string) {

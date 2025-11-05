@@ -1,36 +1,36 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-
-    <ion-title>Carrito</ion-title>
-    <!-- botón con el avatar de perfil -->
+    <ion-title>Mi pedido</ion-title>
+    <!-- Botón con el avatar de perfil -->
     <ion-buttons slot="end">
       <ion-avatar>
-        <img src="./assets/icon/perfil.png"><!-- imagen del avatar -->
+        <img src="./assets/icon/perfil.png" />
       </ion-avatar>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-   <ion-list>
+  <ion-list>
+    <!-- item del producto -->
     <ion-item class="producto-item" *ngFor="let item of items">
-      <!-- item del producto -->
       <ion-thumbnail slot="start">
-        <img [src]="item.image">
+        <img [src]="item.image" />
       </ion-thumbnail>
 
       <ion-label>
-        <h3>{{ item.name }}</h3> <!-- nombre del producto -->
-        <p>S/. {{ item.price | number: '1.2-2' }}</p> <!-- precio del producto -->
+        <h3>{{ item.name }}</h3>
+        <p>S/. {{ item.price | number: '1.2-2' }}</p>
         <div class="quantity-controls">
-          <ion-icon name="add-circle-outline"></ion-icon>
-          <span>1</span>
-          <ion-icon name="remove-circle-outline"></ion-icon>
+          <ion-icon name="add-circle-outline" (click)="increaseQuantity(item)"></ion-icon>
+          <span>{{ item.quantity }}</span>
+          <ion-icon name="remove-circle-outline" (click)="decreaseQuantity(item)"></ion-icon>
         </div>
       </ion-label>
     </ion-item>
   </ion-list>
 
+  <!-- Descripción -->
   <ion-item>
     <ion-label>Descripción</ion-label>
   </ion-item>
@@ -44,6 +44,13 @@
       S/. {{ totalAmount | number: '1.2-2' }}
     </ion-label>
   </ion-item>
+
+  <!-- Botón de regresar -->
+  <div class="return-button">
+    <ion-button fill="clear" color="dark" (click)="goBackToMenu()">
+      Regresar al Menú
+    </ion-button>
+  </div>
 </ion-content>
 
 <!-- Botones de acción -->
@@ -57,10 +64,12 @@
   <!-- Barra de navegación inferior -->
   <ion-toolbar>
     <ion-tab-bar class="bottom-nav">
-      <ion-tab-button *ngFor="let item of navItems"
-                      (click)="navigate(item.route)"
-                      [class.active]="item.route === activeRoute"
-                      [routerLink]="item.route">
+      <ion-tab-button
+        *ngFor="let item of navItems"
+        (click)="navigate(item.route)"
+        [class.active]="item.route === activeRoute"
+        [routerLink]="item.route"
+      >
         <ion-icon [name]="item.icon"></ion-icon>
         <ion-label *ngIf="item.label">{{ item.label }}</ion-label>
         <ion-badge *ngIf="item.badge" color="danger">{{ item.badge }}</ion-badge>
@@ -68,4 +77,3 @@
     </ion-tab-bar>
   </ion-toolbar>
 </ion-footer>
-
