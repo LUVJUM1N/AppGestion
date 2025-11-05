@@ -13,7 +13,13 @@
   <!-- DETALLE DE PRODUCTOS -->
    <div class="card">
     <div class="product-image">
-      <img [src]="product.image"> 
+      <img [src]="product?.image || 'assets/icon/default.png'" alt="Imagen del producto" /> 
+    </div>
+    <div class="card-content">
+      <div class="card-title">
+        <h1 class="ion-no-margin">{{ product?.name }}</h1>
+        <p class="ion-no-margin"><sup>S/.</sup>{{product?.price | number:'1.2'}}</p>
+      </div>
     </div>
    </div>
 </ion-content>

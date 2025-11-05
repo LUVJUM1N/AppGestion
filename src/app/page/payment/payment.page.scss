@@ -55,6 +55,8 @@ h2 {
 /* Form Styling */
 .form-group {
   margin-bottom: 15px;
+  margin-left: 15px;
+  margin-right: 15px;
 }
 
 label {
@@ -78,10 +80,10 @@ input::placeholder {
   color: #aaa;
 }
 
-
 .form-row {
   display: flex;
   gap: 10px;
+
 }
 
 .expiration-group {
@@ -108,6 +110,8 @@ input::placeholder {
   justify-content: space-between;
   margin-top: 25px;
   margin-bottom: 15px;
+  margin-left: 15px;
+  margin-right: 15px;
   align-items: center;
 }
 
@@ -127,6 +131,7 @@ input::placeholder {
   display: flex;
   align-items: center;
   font-size: 14px;
+  margin-left: 15px;
 }
 
 .checkbox-group input {
@@ -139,8 +144,8 @@ input::placeholder {
 .finalize-btn {
   width: 100%;
   padding: 15px;
-  background: linear-gradient(to right, #4b0082, #6a5acd); 
-  color: white;
+  background: linear-gradient(to right, #151277, #6a5acd); 
+  color: rgb(255, 255, 255); //texto
   border: none;
   border-radius: 10px;
   font-size: 18px;
@@ -150,20 +155,22 @@ input::placeholder {
 }
 
 .finalize-btn:disabled {
-  background: #ccc;
+  background: #b6bbf1;
   cursor: not-allowed;
+  margin-right: 15px;
 }
 
 .back-to-menu {
   display: block;
   text-align: center;
-  margin-top: 15px;
-  color: #6a5acd;
+  margin-top: 50px;
+  color: #241d7a;
   text-decoration: none;
-  font-size: 14px;
+  font-size: 12px;
+  text-transform: capitalize;
 }
 
 
 .is-invalid {
-  border-color: #dc3545 !important;
+  border-color: #a20f1e !important;
 }

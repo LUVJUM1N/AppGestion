@@ -28,61 +28,37 @@
   <form [formGroup]="paymentForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
       <label for="cardholderName">Nombre del titular</label>
-      <input
-        id="cardholderName"
-        type="text"
-        placeholder="Ej. Ronaldo Escudero"
-        formControlName="cardholderName"
+      <input id="cardholderName" type="text" placeholder="Ej. Ronaldo Escudero" formControlName="cardholderName"
         [class.is-invalid]="
           paymentForm.get('cardholderName')?.invalid &&
           paymentForm.get('cardholderName')?.touched
-        "
-      />
+        " />
     </div>
 
     <div class="form-group">
       <label for="cardNumber">Número de tarjeta</label>
-      <input
-        id="cardNumber"
-        type="text"
-        placeholder="XXXX XXXX XXXX XXXX"
-        formControlName="cardNumber"
-        maxlength="19"
+      <input id="cardNumber" type="text" placeholder="XXXX XXXX XXXX XXXX" formControlName="cardNumber" maxlength="19"
         [class.is-invalid]="
           paymentForm.get('cardNumber')?.invalid &&
           paymentForm.get('cardNumber')?.touched
-        "
-      />
+        " />
     </div>
 
     <div class="form-row">
       <div class="form-group expiration-group">
         <label for="expiryDate">Fecha de vencimiento</label>
-        <input
-          id="expiryDate"
-          type="text"
-          placeholder="MM/YYYY"
-          formControlName="expiryDate"
-          maxlength="7"
+        <input id="expiryDate" type="text" placeholder="MM/YYYY" formControlName="expiryDate" maxlength="7"
           [class.is-invalid]="
             paymentForm.get('expiryDate')?.invalid &&
             paymentForm.get('expiryDate')?.touched
-          "
-        />
+          " />
       </div>
 
       <div class="form-group cvv-group">
         <label for="cvv">CVV</label>
-        <input
-          id="cvv"
-          type="password"
-          placeholder="Ej. 1234"
-          formControlName="cvv"
-          maxlength="4"
-          [class.is-invalid]="
+        <input id="cvv" type="password" placeholder="Ej. 1234" formControlName="cvv" maxlength="4" [class.is-invalid]="
             paymentForm.get('cvv')?.invalid && paymentForm.get('cvv')?.touched
-          "
-        />
+          " />
         <a href="#" class="view-details">Ver detalles</a>
       </div>
     </div>
@@ -93,12 +69,7 @@
     </div>
 
     <div class="checkbox-group">
-      <input
-        type="checkbox"
-        id="saveData"
-        formControlName="saveData"
-        checked
-      />
+      <input type="checkbox" id="saveData" formControlName="saveData" checked />
       <label for="saveData">Guardar datos para futuras compras</label>
     </div>
 

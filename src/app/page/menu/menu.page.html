@@ -49,18 +49,21 @@
                 <ion-row>
                     <!-- **IMPORTANTE:** Usamos filteredItems para aplicar el filtro de categorías -->
                     <ion-col size="6" *ngFor="let product of filteredItems">
-                        <ion-card class="product-card">
+
+
+                        <!-- Colocar imágenes del producto -->
+                        <!-- AÑADIR RUTA PARA VER DESCRIPCIÓN PRODUCTO -->
+                        <ion-card class="product-card" (click)="openProduct(product)">
                             <div class="product-image">
-                                <!-- Colocar imágenes del producto --> 
-                                 <!-- AÑADIR RUTA PARA VER DESCRIPCIÓN PRODUCTO -->
-                                <img [src]="product.image" [alt]="product.name" loading="lazy" (click)="goToProduct()"/> 
+                                <img [src]="product.image" [alt]="product.name" loading="lazy" />
                             </div>
                             <div class="product-info">
                                 <p class="product-name">{{ product.name }}</p>
                                 <div class="product-actions">
                                     <span class="product-price">S/. {{ product.price }}</span>
                                     <!-- BOTÓN PARA AÑADIR PRODUCTO AL CARRITO -->
-                                    <ion-button fill="solid" size="small" class="add-btn" (click)="addToCart(product)">
+                                    <ion-button fill="solid" size="small" class="add-btn"
+                                        (click)="addToCart(product); $event.stopPropagation()">
                                         <!-- Usamos add-outline para coincidir con la importación en TS -->
                                         <ion-icon name="add-outline"></ion-icon>
                                     </ion-button>
@@ -69,7 +72,7 @@
                         </ion-card>
                     </ion-col>
                 </ion-row>
-                
+
                 <!-- Mensaje si no hay resultados -->
                 <ion-row *ngIf="filteredItems.length === 0">
                     <ion-col size="12">
@@ -87,13 +90,11 @@
 <ion-footer class="ion-no-border">
     <ion-toolbar>
         <ion-tab-bar class="bottom-nav">
-            <ion-tab-button *ngFor="let item of navItems" 
-                            (click)="navigate(item.route)" 
-                            [class.active]="item.route === activeRoute"
-                            [routerLink]="item.route">
+            <ion-tab-button *ngFor="let item of navItems" (click)="navigate(item.route)"
+                [class.active]="item.route === activeRoute" [routerLink]="item.route">
                 <ion-icon [name]="item.icon"></ion-icon>
                 <!-- Solo mostramos la etiqueta para claridad en el código, pero se oculta por SCSS -->
-                <ion-label *ngIf="item.label">{{ item.label }}</ion-label> 
+                <ion-label *ngIf="item.label">{{ item.label }}</ion-label>
                 <ion-badge *ngIf="item.badge" color="danger">{{ item.badge }}</ion-badge>
             </ion-tab-button>
         </ion-tab-bar>

@@ -28,7 +28,8 @@ export class ProductoPage implements OnInit {
     const idParam = this.route.snapshot.paramMap.get('id');
     this.id = idParam ? Number(idParam) : null;
     const nav = (this.router.getCurrentNavigation?.() as any) ?? null;
-    this.product = nav?.extras?.state?.product ?? { id: this.id, nombre: 'Producto demo' };
+    this.product = nav?.extras?.state?.product ?? { id: this.id, nombre: 'Producto demo',price:0 };
+    console.log('Producto cargado:', this.product);
   }
   regresarMenu() {
     this.router.navigate(['/menu']);

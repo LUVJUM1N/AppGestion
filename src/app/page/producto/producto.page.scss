@@ -22,20 +22,38 @@ ion-content {
         bottom: 0;
         border-radius: 3rem 3rem 0 0;
         padding: 2rem;
+    }
 
-        .product-image {
-            height: 120px;
+    .product-image {
+        height: 120px;
+        width: 100%;
+        position: relative;
+        top: -7rem;
+        width: 100%; //ocupación de la imagen
+        left: 50%;
+        transform: translateX(-50%);
+        height: 100%;
+        object-fit: cover;
+        cursor: pointer;
+    }
 
-            img {
-                position: absolute;
-                top: -6.5rem;
-                width: 50%;
-                left: 50%;
-                transform: translateX();
-                // height: 100%;
-                // object-fit: cover;
+    .card-title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: -130%;
+        h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #0b2440;
+            
+        }
 
-            }
+        p {
+            font-size: 24px;
+            font-weight: 700;
+            color: rgb(182, 182, 11);
         }
     }
+
 }
