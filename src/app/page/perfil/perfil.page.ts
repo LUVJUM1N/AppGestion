@@ -47,8 +47,8 @@ import {
 export class PerfilPage implements OnInit {
    
   user = {
-    name: 'Miguel Ayala',
-    email: 'miguel@example.com',
+    name: 'Angelica Delegada',
+    email: 'Delegada@example.com',
     phone: '+51 987654321',
     avatar: './assets/icon/perfil.png'
   };
