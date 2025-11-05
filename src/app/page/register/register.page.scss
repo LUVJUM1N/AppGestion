@@ -1,0 +1,117 @@
+:root{
+  --blue-50: #eaf6ff;
+  --blue-100: #d4eeff;
+  --blue-300: #60a5fa;
+  --blue-500: #2563eb;
+  --blue-600: #1e40af;
+  --blue-700: #1740a0;
+  --card-bg: #ffffff;
+  --muted-blue: rgba(14,58,120,0.65);
+}
+
+.login-page {
+  --ion-background-color: transparent;
+  background: linear-gradient(180deg, var(--blue-50) 0%, var(--blue-100) 60%, #e6f0ff 100%);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 24px;
+}
+
+.center-box {
+  width: 100%;
+  max-width: 420px;
+}
+
+.login-card {
+  border-radius: 14px;
+  padding: 12px;
+  box-shadow: 0 12px 30px rgba(37,99,235,0.12);
+  overflow: hidden;
+  --background: var(--card-bg);
+  border: 1px solid rgba(37,99,235,0.08);
+}
+
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 18px 0 4px;
+}
+
+.logo ion-icon {
+  font-size: 64px;
+  color: var(--blue-500);
+  filter: drop-shadow(0 10px 24px rgba(37,99,235,0.12));
+}
+
+ion-card-header {
+  text-align: center;
+  padding-bottom: 6px;
+}
+ 
+ion-card-title {//para registrar
+  font-weight: 700;
+  font-size: 20px;
+  margin-bottom: 6px;
+  color: var(--blue-700);
+}
+
+ion-card-subtitle {
+  font-size: 13px;
+  color: var(--muted-blue);
+}
+
+.input-item {
+  margin-top: 12px;
+  --padding-start: 0;
+}
+
+.input-item ion-label {
+  font-size: 13px;
+  color: var(--muted-blue);
+}
+
+.input-item ion-input {
+  padding: 6px 0;
+  color: #07203b;
+}
+
+.input-item ion-item { 
+  --background: transparent;
+  --border-color: rgba(37,99,235,0.08);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.actions .enter-btn {
+  min-width: 140px;
+  --border-radius: 10px;
+  --box-shadow: 0 8px 22px rgba(14,90,210,0.14);
+  background: linear-gradient(90deg, var(--blue-500) 0%, #0ea5e9 100%);
+  color: #fff;
+  font-weight: 600;
+}
+
+.actions .enter-btn:hover {
+  transform: translateY(-1px);
+}
+
+.message {
+  display: block;
+  margin-top: 12px;
+  font-size: 13px;
+}
+
+.message.ion-color-danger { color: #b91c1c; }
+.message.ion-color-success { color: #0f766e; }
+
+@media (max-width: 420px) {
+  .center-box { padding: 0 8px; }
+  .logo ion-icon { font-size: 52px; }
+}
