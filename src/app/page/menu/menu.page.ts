@@ -54,28 +54,28 @@ export class MenuPage implements OnInit {
     // PRODUCTOS EN CATEGORÍA TODO
     allPopularItems = [
         {
-            id:1,
+            id: 1,
             name: 'Eje de acero',
             price: 101,
             image: 'assets/icon/eje acero.png',
             category: 'PIEZAS INDUSTRIALES'
         },
         {
-            id:2,
+            id: 2,
             name: 'Engranajes',
             price: 50,
             image: 'assets/icon/engranaje.png',
             category: 'SISTEMA DE TRANSMISIÓN'
         },
         {
-            id:3,
+            id: 3,
             name: 'Viga IPN',
             price: 500,
             image: 'assets/icon/viga.png',
             category: 'ACERO Y ESTRUCTURA'
         },
         {
-            id:4,
+            id: 4,
             name: 'Rodamiento R1',
             price: 85,
             image: 'assets/icon/rodamiento.png',
@@ -127,13 +127,14 @@ export class MenuPage implements OnInit {
         this.router.navigate(['/producto']);
     }
     openProduct(product: any) {
-    const id = product?.id ?? product?.name ?? ''; 
-    console.log('openProduct called, id=', id, ' product=', product);
-     // navega con parámetro y con state para que ProductoPage reciba el objeto completo
-    this.router.navigate(['/producto', id], { state: { product } });
+        const id = product?.id ?? product?.name ?? '';
+        console.log('openProduct called, id=', id, ' product=', product);
+        // navega con parámetro y con state para que ProductoPage reciba el objeto completo
+        this.router.navigate(['/producto', id], { state: { product } });
     }
 
     navigate(route: string) {
         this.activeRoute = route;
-        this.router.navigateByUrl(route); 
-}}
+        this.router.navigateByUrl(route);
+    }
+}
