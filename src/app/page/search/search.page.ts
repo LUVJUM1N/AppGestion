@@ -42,8 +42,8 @@ export class SearchPage {
   navItems = [
     { icon: 'home-outline', label: 'Inicio', route: '/menu' },
     { icon: 'search-outline', label: 'Buscar', route: '/search' },
-    { icon: 'cart-outline', label: 'Carrito', route: '/shop.page', badge: 3 }, 
-    { icon: 'person-outline', label: 'Perfil', route: '/profile' }
+    { icon: 'cart-outline', label: 'Carrito', route: '/shop', badge: 3 }, 
+    { icon: 'person-outline', label: 'Perfil', route: '/perfil' }
   ]; 
 
   navigate(route: string) {

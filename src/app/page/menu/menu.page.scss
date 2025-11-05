@@ -18,7 +18,7 @@ ion-header {
   .main-title {
     font-size: 24px;
     font-weight: 700;
-    color: var(--app-primary-dark);
+    color: #0d3c8d;
     padding-left: 0;
   }
 
@@ -59,9 +59,12 @@ ion-content.main-content {
   padding: 0;
 }
 
-/* Categories */
+/* Categorias */
 .categories-section {
   margin-bottom: 20px;
+  margin: auto;
+  
+  
 }
 
 .categories-scroll {
@@ -69,22 +72,20 @@ ion-content.main-content {
   overflow-x: auto;
   gap: 12px;
   padding-bottom: 8px;
-  /* Espacio para la sombra del scroll */
   -webkit-overflow-scrolling: touch;
-
-  /* Para un scroll suave en iOS */
   &::-webkit-scrollbar {
     display: none;
-    /* Oculta la barra de scroll */
+   
   }
 }
 
 .category-item {
   flex-shrink: 0;
+  min-width: 70px; 
   width: 80px;
   text-align: center;
   background-color: #efeff54b; //sombras de fondo de icons categoría
-  border-radius: 12px;
+  border-radius: 12px;// borde de los icons categoría
   padding: 10px 0;
   box-shadow: var(--card-shadow);
   display: flex;

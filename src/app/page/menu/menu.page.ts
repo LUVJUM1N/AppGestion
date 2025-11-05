@@ -83,7 +83,7 @@ export class MenuPage implements OnInit {
         { icon: 'home-outline', label: 'Inicio', route: '/menu' },
         { icon: 'search-outline', label: 'Buscar', route: '/search' },
         { icon: 'cart-outline', label: 'Carrito', route: '/cart', badge: 1 },
-        { icon: 'person-outline', label: 'Perfil', route: '/profile' }
+        { icon: 'person-outline', label: 'Perfil', route: '/perfil' }
     ];
 
     constructor(private router: Router) {

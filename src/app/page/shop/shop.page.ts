@@ -81,8 +81,8 @@ export class ShopPage implements OnInit {
   navItems = [
     { icon: 'home-outline', label: 'Inicio', route: '/menu' },
     { icon: 'search-outline', label: 'Buscar', route: '/search' },
-    { icon: 'cart-outline', label: 'Carrito', route: '/shop.page', badge: 3 }, // badge de ejemplo
-    { icon: 'person-outline', label: 'Perfil', route: '/profile' }
+    { icon: 'cart-outline', label: 'Carrito', route: '/shop', badge: 3 }, // badge de ejemplo
+    { icon: 'person-outline', label: 'Perfil', route: '/perfil' }
   ];
 
   constructor(private router: Router) { } // Inyectar el Router
