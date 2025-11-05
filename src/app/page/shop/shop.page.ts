@@ -118,10 +118,14 @@ export class ShopPage implements OnInit {
     this.router.navigateByUrl('/payment'); 
   }
 
-  // Método para la navegación de la barra inferior (con Router)
+  // Método para la navegación de la barra inferior 
   navigate(route: string) {
     this.activeRoute = route;
     console.log('Navegando a:', route);
     this.router.navigateByUrl(route);
   }
+goBackToMenu() {
+  this.router.navigateByUrl('/menu');
+}
+
 }

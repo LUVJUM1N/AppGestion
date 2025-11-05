@@ -1,0 +1,169 @@
+.payment-container {
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  font-family: Arial, sans-serif;
+}
+
+h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Payment Methods Section */
+.payment-methods {
+  margin-bottom: 25px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 15px;
+}
+
+.payment-methods h3 {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.view-more {
+  float: right;
+  text-decoration: none;
+  color: #007bff;
+  font-size: 14px;
+}
+
+.method-icons {
+  display: flex;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.method-btn {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 1px solid #ddd;
+  background-color: #f7f7f7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 10px; 
+}
+
+/* Form Styling */
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+input[type='text'],
+input[type='password'] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+input::placeholder {
+  color: #aaa;
+}
+
+
+.form-row {
+  display: flex;
+  gap: 10px;
+}
+
+.expiration-group {
+  flex: 60%;
+}
+
+.cvv-group {
+  flex: 40%;
+  position: relative;
+}
+
+.view-details {
+  position: absolute;
+  top: 75px;
+  right: 0;
+  text-decoration: none;
+  color: #007bff;
+  font-size: 12px;
+}
+
+/* Total Section */
+.total-section {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 25px;
+  margin-bottom: 15px;
+  align-items: center;
+}
+
+.total-label {
+  color: #555;
+}
+
+.total-amount {
+  font-weight: bold;
+  color: #ffa500; 
+  font-size: 18px;
+}
+
+/* Checkbox */
+.checkbox-group {
+  margin-bottom: 25px;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+}
+
+.checkbox-group input {
+  margin-right: 10px;
+  width: 16px;
+  height: 16px;
+}
+
+/* Finalize Button */
+.finalize-btn {
+  width: 100%;
+  padding: 15px;
+  background: linear-gradient(to right, #4b0082, #6a5acd); 
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.finalize-btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.back-to-menu {
+  display: block;
+  text-align: center;
+  margin-top: 15px;
+  color: #6a5acd;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+
+.is-invalid {
+  border-color: #dc3545 !important;
+}

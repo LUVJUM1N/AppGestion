@@ -2,23 +2,23 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { 
+import {
     IonContent, IonHeader, IonTitle, IonToolbar,
     IonButtons, IonIcon, IonButton, IonFooter,
     IonAvatar, IonSearchbar, IonCard, IonCardContent,
     IonCardHeader, IonCardTitle, IonCardSubtitle,
     IonGrid, IonRow, IonCol, IonTabBar, IonTabButton,
-    IonLabel, IonBadge, IonImg 
+    IonLabel, IonBadge, IonImg
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { 
+import {
     searchOutline, personCircleOutline, appsOutline,
     constructOutline, cogOutline, layersOutline,
     addOutline, homeOutline, cartOutline, personOutline
 } from 'ionicons/icons';
 
 // Registrar íconos
-addIcons({ 
+addIcons({
     searchOutline, personCircleOutline, appsOutline,
     constructOutline, cogOutline, layersOutline,
     addOutline, homeOutline, cartOutline, personOutline
@@ -40,8 +40,8 @@ addIcons({
     ]
 })
 export class MenuPage implements OnInit {
-    
-    id:number | string='';
+
+    id: number | string = '';
     selectedCategory: string = 'TODO';
     activeRoute: string = '/menu';
 
@@ -51,7 +51,7 @@ export class MenuPage implements OnInit {
         { title: 'SISTEMA DE TRANSMISIÓN', icon: 'cog-outline' },
         { title: 'ACERO Y ESTRUCTURA', icon: 'layers-outline' }
     ];
-// PRODUCTOS EN CATEGORÍA TODO
+    // PRODUCTOS EN CATEGORÍA TODO
     allPopularItems = [
         {
             name: 'Eje de acero',
@@ -78,7 +78,7 @@ export class MenuPage implements OnInit {
             category: 'PIEZAS INDUSTRIALES'
         }
     ];
-// NAVEGAR POR CATEGORÍA
+    // NAVEGAR POR CATEGORÍA
     navItems = [
         { icon: 'home-outline', label: 'Inicio', route: '/menu' },
         { icon: 'search-outline', label: 'Buscar', route: '/search' },
@@ -87,7 +87,8 @@ export class MenuPage implements OnInit {
     ];
 
     constructor(private router: Router) {
-        addIcons({addOutline}); }
+        addIcons({ addOutline });
+    }
 
     ngOnInit() {
         this.activeRoute = this.router.url;
@@ -117,13 +118,12 @@ export class MenuPage implements OnInit {
     addToCart(product: any) {
         console.log('Añadir al carrito:', product.name);
     }
-    goToProduct(id:number){
-        // console.log(' Clic en producto con ID:', id);
-        this.router.navigateByUrl('/producto/' + id);
+    goToProduct() {
+        // this.router.navigateByUrl('Ver producto'); 
+        this.router.navigate(['/producto']);
     }
 
     navigate(route: string) {
         this.activeRoute = route;
-        this.router.navigateByUrl(route); // ✅ ahora navega realmente
-    }
-}
+        this.router.navigateByUrl(route); 
+}}
