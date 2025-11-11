@@ -85,7 +85,8 @@ export class ShopPage implements OnInit {
     { icon: 'person-outline', label: 'Perfil', route: '/profile' }
   ];
 
-  constructor(private router: Router) { } // Inyectar el Router
+  constructor(private router: Router) {
+      addIcons({addCircleOutline,removeCircleOutline}); } // Inyectar el Router
 
   ngOnInit() {
     try {
@@ -149,6 +150,15 @@ export class ShopPage implements OnInit {
       localStorage.setItem('cart', JSON.stringify(this.items));
     } catch (e) {
       console.warn('No se pudo guardar el carrito', e);
+    }
+  }
+
+  removeItem(item: any) {
+    const idx = this.items.findIndex(i => (i.id && item.id && i.id === item.id) || i.name === item.name);
+    if (idx > -1) {
+      this.items.splice(idx, 1);
+      this.calculateTotal();
+      this.saveCart(); // si ya tienes saveCart para persistencia
     }
   }
 

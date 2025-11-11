@@ -87,7 +87,7 @@ export class MenuPage implements OnInit {
         { icon: 'home-outline', label: 'Inicio', route: '/menu' },
         { icon: 'search-outline', label: 'Buscar', route: '/search' },
         { icon: 'cart-outline', label: 'Carrito', route: '/cart', badge: 1 },
-        { icon: 'person-outline', label: 'Perfil', route: '/profile' }
+        { icon: 'person-outline', label: 'Perfil', route: '/perfil' }
     ];
 
     constructor(private router: Router) {
@@ -113,6 +113,7 @@ export class MenuPage implements OnInit {
 
     openProfile() {
         console.log('Abrir perfil');
+        this.router.navigate(['/perfil']);
     }
 
     openCustom() {
@@ -134,7 +135,8 @@ export class MenuPage implements OnInit {
     }
 
     navigate(route: string) {
-        this.activeRoute = route;
+        //this.activeRoute = route;
+        if (!route) return;
         this.router.navigateByUrl(route);
     }
 }

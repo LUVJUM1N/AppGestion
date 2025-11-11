@@ -27,7 +27,14 @@
           <ion-icon name="remove-circle-outline" (click)="decreaseQuantity(item)"></ion-icon>
         </div>
       </ion-label>
+
+      <!-- Botón eliminar producto -->
+      <ion-button class="trashi" slot="end" fill="clear" color="danger" size="big"
+        (click)="$event.stopPropagation(); removeItem(item)">
+        <ion-icon name="trash-outline"></ion-icon>
+      </ion-button>
     </ion-item>
+    
   </ion-list>
 
   <!-- Descripción -->
@@ -64,12 +71,8 @@
   <!-- Barra de navegación inferior -->
   <ion-toolbar>
     <ion-tab-bar class="bottom-nav">
-      <ion-tab-button
-        *ngFor="let item of navItems"
-        (click)="navigate(item.route)"
-        [class.active]="item.route === activeRoute"
-        [routerLink]="item.route"
-      >
+      <ion-tab-button *ngFor="let item of navItems" (click)="navigate(item.route)"
+        [class.active]="item.route === activeRoute" [routerLink]="item.route">
         <ion-icon [name]="item.icon"></ion-icon>
         <ion-label *ngIf="item.label">{{ item.label }}</ion-label>
         <ion-badge *ngIf="item.badge" color="danger">{{ item.badge }}</ion-badge>

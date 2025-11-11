@@ -52,13 +52,13 @@ ion-card-header {
  
 ion-card-title {//para registrar
   font-weight: 700;
-  font-size: 20px;
+  font-size: 50px;
   margin-bottom: 6px;
   color: var(--blue-700);
 }
 
 ion-card-subtitle {
-  font-size: 13px;
+  font-size: 19px;
   color: var(--muted-blue);
 }
 
@@ -86,7 +86,7 @@ ion-card-subtitle {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-top: 18px;
+  margin-top: 8px;
 }
 
 .actions .enter-btn {

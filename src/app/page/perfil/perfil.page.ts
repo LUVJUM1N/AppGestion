@@ -1,22 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
-import { IonButton } from '@ionic/angular/standalone';
-import { 
-  IonContent, 
-  IonHeader, 
-  IonTitle, 
-  IonToolbar, 
-  IonButtons, 
-  IonAvatar, 
-  IonFooter, 
-  IonTabBar,
-  IonTabButton,
-  IonIcon,
-  IonLabel,
-  IonBadge,
-  
+import {
+  IonHeader, IonToolbar, IonTitle, IonButtons, IonAvatar,
+  IonContent, IonButton, IonFooter, IonTabBar, IonTabButton,
+  IonIcon, IonLabel, IonBadge
 } from '@ionic/angular/standalone';
 
 @Component({
@@ -25,71 +14,84 @@ import {
   styleUrls: ['./perfil.page.scss'],
   standalone: true,
   imports: [
-  CommonModule,
-  FormsModule,
-  RouterModule,
-  IonContent,
-  IonHeader,
-  IonTitle,
-  IonToolbar,
-  IonButtons,
-  IonAvatar,
-  IonFooter,
-  IonTabBar,
-  IonTabButton,
-  IonIcon,
-  IonLabel,
-  IonBadge,
-  IonButton 
-]
-
+    CommonModule,
+    FormsModule,
+    IonHeader, IonToolbar, IonTitle, IonButtons, IonAvatar,
+    IonContent, IonButton, IonFooter, IonTabBar, IonTabButton,
+    IonIcon, IonLabel, IonBadge
+  ]
 })
 export class PerfilPage implements OnInit {
-   
-  user = {
-    name: 'Angelica Delegada',
-    email: 'Delegada@example.com',
-    phone: '+51 987654321',
-    avatar: './assets/icon/perfil.png'
+  user: any = {
+    name: 'Usuario',
+    email: '',
+    phone: '',
+    avatar: 'assets/icon/perfil.png'
   };
 
-  // para la barra de navegación inferior
-   navItems = [
-        { icon: 'home-outline', label: 'Inicio', route: '/menu' },
-        { icon: 'search-outline', label: 'Buscar', route: '/search' },
-        { icon: 'cart-outline', label: 'Carrito', route: '/cart', badge: 1 },
-        { icon: 'person-outline', label: 'Perfil', route: '/profile' }
-    ];
+  editing = false;
+  navItems = [
+    { icon: 'home-outline', route: '/menu', label: 'Inicio' },
+    { icon: 'cart-outline', route: '/shop', label: 'Carrito' },
+    { icon: 'person-outline', route: '/perfil', label: 'Perfil' }
+  ];
+  activeRoute = '/perfil';
 
+  constructor(private router: Router) {}
 
-  activeRoute = '/profile';
+  ngOnInit() {
+    // cargar user guardado si existe
+    try {
+      const raw = localStorage.getItem('user_profile');
+      if (raw) this.user = JSON.parse(raw);
+    } catch (e) { console.warn('No se pudo leer user_profile', e); }
 
-  constructor() { }
-
-  ngOnInit() { }
+    this.activeRoute = this.router.url;
+  }
 
   openProfile() {
-    console.log('Abrir perfil');
+    // ya estamos en perfil; puedes usar para abrir modal o detalles
+    console.log('openProfile');
   }
 
-  navigate(route: string) {
-    console.log('Navegando a', route);
-    this.activeRoute = route; // Marca la ruta activa
+  editProfile() {
+    this.editing = true;
   }
 
-    editProfile() {
-    console.log('Editar Perfil');
-    // Lógica para abrir formulario de edición
+  saveProfile() {
+    this.editing = false;
+    try {
+      localStorage.setItem('user_profile', JSON.stringify(this.user));
+    } catch (e) { console.warn('No se pudo guardar perfil', e); }
   }
 
   changePassword() {
-    console.log('Cambiar Contraseña');
-    // Lógica para cambiar contraseña
+    // navegar a pantalla de cambio de contraseña o abrir modal
+    this.router.navigateByUrl('/change-password');
   }
 
   logout() {
-    console.log('Cerrar Sesión');
-    // Lógica para cerrar sesión
+    // limpiar datos de sesión y navegar al login/menu
+    try { localStorage.removeItem('user_profile'); } catch (_) {}
+    // opcional: limpiar carrito u otros datos
+    this.router.navigateByUrl('/menu');
   }
 
+  // llamado por <input type="file"> en la plantilla
+  async onFileSelected(ev: any) {
+    const file: File = ev.target?.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.user.avatar = String(reader.result);
+      // guardar inmediatamente la nueva avatar
+      try { localStorage.setItem('user_profile', JSON.stringify(this.user)); } catch (e) { console.warn(e); }
+    };
+    reader.readAsDataURL(file);
+  }
+
+  navigate(route: string) {
+    if (!route) return;
+    this.router.navigateByUrl(route);
+  }
 }
