@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
@@ -90,12 +90,11 @@ export class MenuPage implements OnInit {
         { icon: 'person-outline', label: 'Perfil', route: '/perfil' }
     ];
 
-    constructor(private router: Router) {
-        addIcons({ addOutline });
-    }
+    private router = inject(Router);
 
     ngOnInit() {
         this.activeRoute = this.router.url;
+        addIcons({ addOutline });
     }
 
     selectCategory(categoryTitle: string) {

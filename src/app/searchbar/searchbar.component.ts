@@ -1,4 +1,4 @@
-import { Component, NgModule, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 //import { SearchbarComponent } from './searchbar.component';
 import { CommonModule } from '@angular/common';
@@ -17,10 +17,6 @@ import { CommonModule } from '@angular/common';
 //   providers:[],
 // })
 
-export class SearchbarComponent  implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {}
+export class SearchbarComponent {
 
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
@@ -66,7 +66,7 @@ export class PerfilPage implements OnInit {
     { icon: 'person-outline', label: 'Perfil', route: '/perfil' }
   ];
 
-  constructor(private router: Router) { }
+  private router = inject(Router);
 
   ngOnInit() {
     this.activeRoute = this.router.url;

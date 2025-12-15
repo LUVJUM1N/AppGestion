@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, 
@@ -21,13 +21,13 @@ import { Router } from '@angular/router';
     IonButtons, IonAvatar
   ]
 })
-export class PaymentPage implements OnInit {
+export class PaymentPage {
   paymentForm: FormGroup;
 
-  constructor(
-    private router: Router,
-    private formBuilder: FormBuilder
-  ) {
+  private router = inject(Router);
+  private formBuilder = inject(FormBuilder);
+
+  constructor() {
     this.paymentForm = this.formBuilder.group({
       cardholderName: ['', [Validators.required, Validators.minLength(3)]],
       cardNumber: ['', [Validators.required, Validators.pattern('^[0-9]{16}$')]],
@@ -37,8 +37,6 @@ export class PaymentPage implements OnInit {
     });
   }
 
-  ngOnInit() {
-  }
 
   onSubmit() {
     if (this.paymentForm.valid) {

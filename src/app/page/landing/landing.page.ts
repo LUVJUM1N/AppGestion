@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -14,13 +14,9 @@ import { IonContent, IonHeader, IonTitle, IonToolbar,
     IonImg, IonFabButton, IonFab,IonIcon, IonButton
   ]
 })
-export class LandingPage implements OnInit {
+export class LandingPage {
 
-  constructor(private router:Router) { }
-
-  ngOnInit() {
-    
-  }
+  private router = inject(Router);
   irAPagina2() {
     this.router.navigate(['/login']); //cambiar al inicio de sesión
   }

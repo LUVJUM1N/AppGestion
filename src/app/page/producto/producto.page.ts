@@ -1,7 +1,7 @@
 
 import { addIcons } from 'ionicons'; // registrar iconos
 import { star, starOutline } from 'ionicons/icons';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
@@ -22,8 +22,8 @@ import { ActivatedRoute, Router } from '@angular/router'; // Necesitas importar 
 export class ProductoPage implements OnInit {
   id: number | null = null;
   product: any = null;
-  constructor(private router: Router, private route: ActivatedRoute) {
-  }
+  private router = inject(Router);
+  private route = inject(ActivatedRoute);
 
   ngOnInit() {
     //PRUEBA

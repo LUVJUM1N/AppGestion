@@ -1,4 +1,4 @@
-import { Component, NgModule } from '@angular/core';
+import { Component, NgModule, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { 
@@ -35,7 +35,7 @@ import { Router, RouterLink } from '@angular/router';
 })
 
 export class SearchPage {
-  constructor(private router: Router) {}
+  private router = inject(Router);
 
   // Propiedades para la navegación inferior (Iconos)
   activeRoute: string = '/search'; 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router'; // Importar Router y RouterModule
@@ -84,8 +84,7 @@ export class ShopPage implements OnInit {
         { icon: 'person-outline', label: 'Perfil', route: '/perfil' }
     ];
 
-  constructor(private router: Router) {
-      addIcons({addCircleOutline,removeCircleOutline}); } // Inyectar el Router
+  private router = inject(Router);
 
   ngOnInit() {
     try {
