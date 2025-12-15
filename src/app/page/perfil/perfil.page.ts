@@ -1,12 +1,32 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
 import {
-  IonHeader, IonToolbar, IonTitle, IonButtons, IonAvatar,
-  IonContent, IonButton, IonFooter, IonTabBar, IonTabButton,
-  IonIcon, IonLabel, IonBadge
+    IonContent, IonHeader, IonTitle, IonToolbar,
+    IonButtons, IonIcon, IonButton, IonFooter,
+    IonAvatar, IonCard, IonCardContent,
+    IonCardHeader, IonCardTitle, IonCardSubtitle,
+    IonGrid, IonRow, IonCol, IonTabBar, IonTabButton,
+    IonLabel, IonBadge, IonImg
 } from '@ionic/angular/standalone';
+import { addIcons } from 'ionicons';
+import {
+    searchOutline, personCircleOutline, appsOutline,
+    constructOutline, cogOutline, layersOutline,
+    addOutline, homeOutline, cartOutline, personOutline,
+    settingsOutline, helpCircleOutline, logOutOutline, bagOutline,
+    chevronForwardOutline
+} from 'ionicons/icons';
+
+// Registrar íconos
+addIcons({
+    searchOutline, personCircleOutline, appsOutline,
+    constructOutline, cogOutline, layersOutline,
+    addOutline, homeOutline, cartOutline, personOutline,
+    settingsOutline, helpCircleOutline, logOutOutline, bagOutline,
+    chevronForwardOutline
+});
 
 @Component({
   selector: 'app-perfil',
@@ -14,84 +34,64 @@ import {
   styleUrls: ['./perfil.page.scss'],
   standalone: true,
   imports: [
-    CommonModule,
-    FormsModule,
-    IonHeader, IonToolbar, IonTitle, IonButtons, IonAvatar,
-    IonContent, IonButton, IonFooter, IonTabBar, IonTabButton,
-    IonIcon, IonLabel, IonBadge
+    CommonModule, FormsModule, RouterModule,
+    IonContent, IonHeader, IonTitle, IonToolbar,
+    IonButtons, IonIcon, IonButton, IonFooter,
+    IonAvatar, IonCard, IonCardContent,
+    IonCardHeader, IonCardTitle, IonCardSubtitle,
+    IonGrid, IonRow, IonCol, IonTabBar, IonTabButton,
+    IonLabel, IonBadge, IonImg
   ]
 })
 export class PerfilPage implements OnInit {
-  user: any = {
-    name: 'Usuario',
-    email: '',
-    phone: '',
-    avatar: 'assets/icon/perfil.png'
+
+  activeRoute: string = '/perfil';
+
+  user = {
+    name: 'Juan Pérez',
+    email: 'juan.perez@example.com',
+    avatar: './assets/icon/perfil.png'
   };
 
-  editing = false;
-  navItems = [
-    { icon: 'home-outline', route: '/menu', label: 'Inicio' },
-    { icon: 'cart-outline', route: '/shop', label: 'Carrito' },
-    { icon: 'person-outline', route: '/perfil', label: 'Perfil' }
+  profileOptions = [
+    { title: 'Mis Pedidos', icon: 'bag-outline', route: 'orders' },
+    { title: 'Configuración', icon: 'settings-outline', action: 'settings' },
+    { title: 'Ayuda', icon: 'help-circle-outline', action: 'help' },
+    { title: 'Cerrar Sesión', icon: 'log-out-outline', action: 'logout' }
   ];
-  activeRoute = '/perfil';
 
-  constructor(private router: Router) {}
+  navItems = [
+    { icon: 'home-outline', label: 'Inicio', route: '/menu' },
+    { icon: 'cart-outline', label: 'Carrito', route: '/shop', badge: 1 },
+    { icon: 'person-outline', label: 'Perfil', route: '/perfil' }
+  ];
+
+  constructor(private router: Router) { }
 
   ngOnInit() {
-    // cargar user guardado si existe
-    try {
-      const raw = localStorage.getItem('user_profile');
-      if (raw) this.user = JSON.parse(raw);
-    } catch (e) { console.warn('No se pudo leer user_profile', e); }
-
     this.activeRoute = this.router.url;
-  }
-
-  openProfile() {
-    // ya estamos en perfil; puedes usar para abrir modal o detalles
-    console.log('openProfile');
-  }
-
-  editProfile() {
-    this.editing = true;
-  }
-
-  saveProfile() {
-    this.editing = false;
-    try {
-      localStorage.setItem('user_profile', JSON.stringify(this.user));
-    } catch (e) { console.warn('No se pudo guardar perfil', e); }
-  }
-
-  changePassword() {
-    // navegar a pantalla de cambio de contraseña o abrir modal
-    this.router.navigateByUrl('/change-password');
-  }
-
-  logout() {
-    // limpiar datos de sesión y navegar al login/menu
-    try { localStorage.removeItem('user_profile'); } catch (_) {}
-    // opcional: limpiar carrito u otros datos
-    this.router.navigateByUrl('/menu');
-  }
-
-  // llamado por <input type="file"> en la plantilla
-  async onFileSelected(ev: any) {
-    const file: File = ev.target?.files?.[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = () => {
-      this.user.avatar = String(reader.result);
-      // guardar inmediatamente la nueva avatar
-      try { localStorage.setItem('user_profile', JSON.stringify(this.user)); } catch (e) { console.warn(e); }
-    };
-    reader.readAsDataURL(file);
   }
 
   navigate(route: string) {
     if (!route) return;
     this.router.navigateByUrl(route);
+  }
+
+  handleOption(action: string) {
+    switch (action) {
+      case 'orders':
+        console.log('Abrir mis pedidos');
+        break;
+      case 'settings':
+        console.log('Abrir configuración');
+        break;
+      case 'help':
+        console.log('Abrir ayuda');
+        break;
+      case 'logout':
+        console.log('Cerrar sesión');
+        this.router.navigate(['/login']);
+        break;
+    }
   }
 }

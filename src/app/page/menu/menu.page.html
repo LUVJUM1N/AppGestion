@@ -14,7 +14,7 @@
     <div class="content-wrapper">
         <!-- Buscador -->
         <div class="search-bar-container">
-            <ion-searchbar placeholder="Buscar" mode="ios" class="custom-searchbar"></ion-searchbar>
+            <ion-searchbar placeholder="Buscar" mode="ios" class="custom-searchbar" (ionInput)="onSearchChange($event)"></ion-searchbar>
         </div>
 
         <!-- Categorías -->

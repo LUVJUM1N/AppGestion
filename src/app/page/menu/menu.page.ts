@@ -44,6 +44,7 @@ export class MenuPage implements OnInit {
     id: number | string = '';
     selectedCategory: string = 'TODO';
     activeRoute: string = '/menu';
+    searchTerm: string = '';
 
     categories = [
         { title: 'TODO', icon: 'apps-outline' },
@@ -85,8 +86,7 @@ export class MenuPage implements OnInit {
     // NAVEGAR POR CATEGORÍA
     navItems = [
         { icon: 'home-outline', label: 'Inicio', route: '/menu' },
-        { icon: 'search-outline', label: 'Buscar', route: '/search' },
-        { icon: 'cart-outline', label: 'Carrito', route: '/cart', badge: 1 },
+        { icon: 'cart-outline', label: 'Carrito', route: '/shop', badge: 1 },
         { icon: 'person-outline', label: 'Perfil', route: '/perfil' }
     ];
 
@@ -104,11 +104,23 @@ export class MenuPage implements OnInit {
     }
 
     get filteredItems() {
-        if (this.selectedCategory === 'TODO') {
-            return this.allPopularItems;
-        } else {
-            return this.allPopularItems.filter(item => item.category === this.selectedCategory);
+        let items = this.allPopularItems;
+
+        if (this.selectedCategory !== 'TODO') {
+            items = items.filter(item => item.category === this.selectedCategory);
         }
+
+        if (this.searchTerm) {
+            items = items.filter(item =>
+                item.name.toLowerCase().includes(this.searchTerm.toLowerCase())
+            );
+        }
+
+        return items;
+    }
+
+    onSearchChange(event: any) {
+        this.searchTerm = event.detail.value || '';
     }
 
     openProfile() {

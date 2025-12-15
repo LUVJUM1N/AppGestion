@@ -79,11 +79,10 @@ export class ShopPage implements OnInit {
   // Propiedades para la navegación inferior
   activeRoute: string = '/shop'; // Establece la ruta activa por defecto para esta página
   navItems = [
-    { icon: 'home-outline', label: 'Inicio', route: '/menu' },
-    { icon: 'search-outline', label: 'Buscar', route: '/search' },
-    { icon: 'cart-outline', label: 'Carrito', route: '/shop.page', badge: 3 }, // badge de ejemplo
-    { icon: 'person-outline', label: 'Perfil', route: '/profile' }
-  ];
+        { icon: 'home-outline', label: 'Inicio', route: '/menu' },
+        { icon: 'cart-outline', label: 'Carrito', route: '/shop', badge: 1 },
+        { icon: 'person-outline', label: 'Perfil', route: '/perfil' }
+    ];
 
   constructor(private router: Router) {
       addIcons({addCircleOutline,removeCircleOutline}); } // Inyectar el Router
