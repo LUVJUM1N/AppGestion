@@ -1,6 +1,8 @@
-
 import { addIcons } from 'ionicons'; // registrar iconos
 import { star, starOutline } from 'ionicons/icons';
+
+// Registrar iconos locales para esta página
+addIcons({ star, starOutline });
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -9,6 +11,7 @@ import {
   IonButton, IonIcon, IonImg
 } from '@ionic/angular/standalone';
 import { ActivatedRoute, Router } from '@angular/router'; // Necesitas importar 'ActivatedRoute'
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-producto',
@@ -24,6 +27,7 @@ export class ProductoPage implements OnInit {
   product: any = null;
   private router = inject(Router);
   private route = inject(ActivatedRoute);
+  private toastController = inject(ToastController);
 
   ngOnInit() {
     //PRUEBA
@@ -36,21 +40,41 @@ export class ProductoPage implements OnInit {
 
   addToShop(product: any) {
     if (!product) return;
-    //this.router.navigate(['/shop'], { state: { product } });
 
     try {
       const raw = localStorage.getItem('cart');
       const cart = raw ? JSON.parse(raw) : [];
+
+      const toAdd = {
+        id: product.id ?? null,
+        name: product.name ?? product.nombre ?? 'Producto',
+        price: Number(product.price) || 0,
+        image: product.image ?? 'assets/icon/default.png',
+        quantity: Number(product.quantity) || 1
+      };
+
       // buscar por id o por name como fallback
-      const existing = cart.find((p: any) => (p.id && product.id && p.id === product.id) || p.name === product.name);
+      const existing = cart.find((p: any) => (p.id && toAdd.id && p.id === toAdd.id) || p.name === toAdd.name);
       if (existing) {
-        existing.quantity = (Number(existing.quantity) || 0) + (Number(product.quantity) || 1);
+        existing.quantity = (Number(existing.quantity) || 0) + toAdd.quantity;
       } else {
-        cart.push({ ...product, quantity: Number(product.quantity) || 1 });
+        cart.push(toAdd);
       }
+
       localStorage.setItem('cart', JSON.stringify(cart));
+
+      // Emitir evento para que otras páginas (Menu) actualicen badge si escuchan
+      try { window.dispatchEvent(new CustomEvent('cart:updated', { detail: { cart } })); } catch (e) { /* ignore */ }
+
+      // Mostrar toast de confirmación
+      this.toastController.create({
+        message: 'Producto añadido al carrito',
+        duration: 2000,
+        position: 'bottom'
+      }).then(toast => toast.present());
     } catch (e) {
       console.warn('No se pudo guardar el carrito en localStorage', e);
+      this.toastController.create({ message: 'Error al añadir al carrito', duration: 2000, color: 'danger', position: 'bottom' }).then(t => t.present());
     }
 
     this.router.navigate(['/shop']);

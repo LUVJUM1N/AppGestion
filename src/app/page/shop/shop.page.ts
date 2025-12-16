@@ -7,13 +7,15 @@ import { Router, RouterModule } from '@angular/router'; // Importar Router y Rou
 import { addIcons } from 'ionicons';
 import {
   homeOutline, searchOutline, cartOutline, personOutline, // Iconos para la barra de navegación
-  addCircleOutline, removeCircleOutline // Iconos existentes para cantidad
+  addCircleOutline, removeCircleOutline, closeCircle // Iconos existentes para cantidad
 } from 'ionicons/icons';
+import { ToastController } from '@ionic/angular';
+import { AuthService } from '../../services/auth.service';
 
 // Registrar los iconos (esto está fuera del bloque de importaciones del componente)
 addIcons({
   homeOutline, searchOutline, cartOutline, personOutline,
-  addCircleOutline, removeCircleOutline // Asegúrate de registrar los iconos existentes también
+  addCircleOutline, removeCircleOutline, closeCircle // Asegúrate de registrar los iconos existentes también
 });
 
 import {
@@ -85,6 +87,10 @@ export class ShopPage implements OnInit {
     ];
 
   private router = inject(Router);
+  private toastController = inject(ToastController);
+  private authService = inject(AuthService);
+
+  avatarUrl: string = './assets/icon/perfil.png';
 
   ngOnInit() {
     try {
@@ -95,9 +101,9 @@ export class ShopPage implements OnInit {
     } catch (e) {
       console.warn('Error leyendo carrito de localStorage', e);
     }
-    //this.calculateTotal();
-    //this.activeRoute = this.router.url;
-    const nav = (this.router.getCurrentNavigation?.() as any) ?? null;//entregar producto
+
+    // Manejo del producto añadido por navegación
+    const nav = (this.router.getCurrentNavigation?.() as any) ?? null;
     const added = nav?.extras?.state?.product ?? null;
 
     if (added) {
@@ -121,18 +127,36 @@ export class ShopPage implements OnInit {
     // calcular total y actualizar ruta activa
     this.calculateTotal();
     this.activeRoute = this.router.url;
+
+    // Actualizar badge del carrito
+    this.updateCartBadge();
+
+    // Suscribirse a cambios de usuario para mostrar avatar
+    this.authService.authState$.subscribe(user => {
+      if (user) {
+        this.avatarUrl = user.photoURL ?? './assets/icon/perfil.png';
+      } else {
+        this.avatarUrl = './assets/icon/perfil.png';
+      }
+    });
   }
 
   increaseQuantity(item: any) {
     item.quantity = Number(item.quantity) + 1;
     this.calculateTotal();
     this.saveCart();
+
+    this.toastController.create({ message: 'Cantidad actualizada', duration: 1200, position: 'bottom' }).then(t => t.present());
+    this.updateCartBadge();
   }
 
   decreaseQuantity(item: any) {
     item.quantity = Math.max(1, Number(item.quantity) - 1);
     this.calculateTotal();
     this.saveCart();
+
+    this.toastController.create({ message: 'Cantidad actualizada', duration: 1200, position: 'bottom' }).then(t => t.present());
+    this.updateCartBadge();
   }
 
   calculateTotal() {
@@ -157,11 +181,31 @@ export class ShopPage implements OnInit {
       this.items.splice(idx, 1);
       this.calculateTotal();
       this.saveCart(); // si ya tienes saveCart para persistencia
+      this.toastController.create({ message: 'Producto eliminado', duration: 1400, position: 'bottom' }).then(t => t.present());
+      this.updateCartBadge();
     }
   }
 
-  goToPayment() {
-    console.log('Ir a la página de pago');
+  private updateCartBadge() {
+    try {
+      const raw = localStorage.getItem('cart');
+      const cart = raw ? JSON.parse(raw) : [];
+      const totalCount = cart.reduce((acc: number, item: any) => acc + (Number(item.quantity) || 0), 0);
+      const cartNav = this.navItems.find(i => i.route === '/shop' || i.icon === 'cart-outline');
+      if (cartNav) {
+        cartNav.badge = totalCount || undefined;
+      }
+      this.navItems = [...this.navItems];
+    } catch (e) {
+      console.warn('Error actualizando badge del carrito', e);
+    }
+  }
+
+  async goToPayment() {
+    if (this.totalAmount <= 0) {
+      await this.toastController.create({ message: 'El carrito está vacío', duration: 1600, color: 'warning', position: 'bottom' }).then(t => t.present());
+      return;
+    }
     // Navegación real
     this.router.navigateByUrl('/payment');
   }
@@ -174,6 +218,10 @@ export class ShopPage implements OnInit {
   }
   goBackToMenu() {
     this.router.navigateByUrl('/menu');
+  }
+
+  openProfile() {
+    this.router.navigateByUrl('/perfil');
   }
 
 }

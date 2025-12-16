@@ -17,7 +17,7 @@ ion-header {
   .main-title {
     font-size: 24px;
     font-weight: 700;
-    color: var(--app-primary-dark);
+    color: #0d3c8d;
     padding-left: 0;
   }
 }
@@ -79,7 +79,56 @@ ion-content.main-content {
       color: var(--text-muted);
       margin: 0;
     }
-  }
+    .avatar-actions {
+      margin-top: 10px;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+
+      ion-button {
+        --padding-start: 12px;
+        --padding-end: 12px;
+        font-size: 13px;
+      }
+    }
+
+    .edit-name {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin-top: 8px;
+
+      ion-input {
+        flex: 1;
+      }
+    }
+
+    .upload-progress {
+      margin-top: 8px;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+
+      ion-progress-bar {
+        width: 100%;
+      }
+
+      small {
+        font-size: 12px;
+        color: var(--text-muted);
+      }
+    }
+
+    .map-wrapper {
+      margin-top: 12px;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: var(--card-shadow);
+    }
+
+    .order-card {
+      margin-top: 12px;
+    }  }
 }
 
 /* Options Section */

@@ -1,0 +1,23 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="header-toolbar">
+    <ion-title class="main-title">Mis Pedidos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="main-content" [fullscreen]="true">
+  <div class="content-wrapper">
+    <div *ngIf="orders.length === 0">No hay pedidos aún.</div>
+
+    <ion-list>
+      <ion-card *ngFor="let order of orders" class="order-card">
+        <ion-card-header>
+          <h3>Pedido - {{ order.createdAt || (order.id) }}</h3>
+        </ion-card-header>
+        <ion-card-content>
+          <p>Total: S/. {{ order.total }}</p>
+          <p>Productos: {{ totalItems(order) }}</p>
+        </ion-card-content>
+      </ion-card>
+    </ion-list>
+  </div>
+</ion-content>

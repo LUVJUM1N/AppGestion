@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, OnDestroy, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
@@ -10,7 +10,9 @@ import {
     IonGrid, IonRow, IonCol, IonTabBar, IonTabButton,
     IonLabel, IonBadge, IonImg
 } from '@ionic/angular/standalone';
+import { AuthService } from '../../services/auth.service';
 import { addIcons } from 'ionicons';
+import { ToastController } from '@ionic/angular';
 import {
     searchOutline, personCircleOutline, appsOutline,
     constructOutline, cogOutline, layersOutline,
@@ -91,10 +93,40 @@ export class MenuPage implements OnInit {
     ];
 
     private router = inject(Router);
+    private authService = inject(AuthService);
+    private toastController = inject(ToastController);
+
+    avatarUrl: string = './assets/icon/perfil.png';
 
     ngOnInit() {
         this.activeRoute = this.router.url;
         addIcons({ addOutline });
+        this.updateCartBadge();
+
+        this.authService.authState$.subscribe(user => {
+            if (user) {
+                this.avatarUrl = user.photoURL ?? './assets/icon/perfil.png';
+            } else {
+                this.avatarUrl = './assets/icon/perfil.png';
+            }
+        });
+
+        // Escuchar eventos de actualización de carrito (desde ProductoPage u otras partes)
+        window.addEventListener('cart:updated', this._cartUpdateHandler);
+    }
+
+    ngOnDestroy() {
+        window.removeEventListener('cart:updated', this._cartUpdateHandler);
+    }
+
+    private _cartUpdateHandler = (_: any) => {
+        // Recalcular badge cuando recibe evento
+        this.updateCartBadge();
+    };
+
+    // Ionic lifecycle: actualizar badge cuando se vuelve a la página
+    ionViewWillEnter() {
+        this.updateCartBadge();
     }
 
     selectCategory(categoryTitle: string) {
@@ -131,8 +163,63 @@ export class MenuPage implements OnInit {
         console.log('Abrir sección de personalización');
     }
 
+    private updateCartBadge() {
+        try {
+            const raw = localStorage.getItem('cart');
+            const cart = raw ? JSON.parse(raw) : [];
+            const totalCount = cart.reduce((acc: number, item: any) => acc + (Number(item.quantity) || 0), 0);
+            const cartNav = this.navItems.find(i => i.route === '/shop' || i.icon === 'cart-outline');
+            if (cartNav) {
+                cartNav.badge = totalCount || undefined;
+            }
+            this.navItems = [...this.navItems];
+        } catch (e) {
+            console.warn('Error actualizando badge del carrito', e);
+        }
+    }
+
     addToCart(product: any) {
-        console.log('Añadir al carrito:', product.name);
+        if (!product) return;
+
+        const toAdd = {
+            id: product.id ?? null,
+            name: product.name ?? product.nombre ?? 'Producto',
+            price: Number(product.price) || 0,
+            image: product.image ?? 'assets/icon/default.png',
+            quantity: 1
+        };
+
+        console.log('Añadiendo al carrito desde Menu:', toAdd);
+
+        try {
+            const raw = localStorage.getItem('cart');
+            const cart = raw ? JSON.parse(raw) : [];
+            const existing = cart.find((p: any) => (p.id && toAdd.id && p.id === toAdd.id) || p.name === toAdd.name);
+            if (existing) {
+                existing.quantity = (Number(existing.quantity) || 0) + toAdd.quantity;
+            } else {
+                cart.push(toAdd);
+            }
+            localStorage.setItem('cart', JSON.stringify(cart));
+
+            // Actualizar badge del nav (suma de cantidades)
+            const totalCount = cart.reduce((acc: number, item: any) => acc + (Number(item.quantity) || 0), 0);
+            const cartNav = this.navItems.find(i => i.route === '/shop' || i.icon === 'cart-outline');
+            if (cartNav) {
+                cartNav.badge = totalCount || undefined;
+            }
+            // Forzar actualización de la vista
+            this.navItems = [...this.navItems];
+
+            // Mostrar toast de confirmación
+            this.toastController.create({
+                message: 'Producto añadido al carrito',
+                duration: 2000,
+                position: 'bottom'
+            }).then(toast => toast.present());
+        } catch (e) {
+            console.warn('No se pudo guardar el carrito desde Menu', e);
+        }
     }
     goToProduct() {
         // this.router.navigateByUrl('Ver producto'); 

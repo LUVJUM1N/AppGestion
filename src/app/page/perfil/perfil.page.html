@@ -6,7 +6,6 @@
 
 <ion-content class="main-content" [fullscreen]="true">
     <div class="content-wrapper">
-        <!-- Información del Usuario -->
         <div class="user-info-section">
             <ion-card class="user-card">
                 <div class="user-card-content">
@@ -16,37 +15,79 @@
                     <div class="user-details">
                         <h3 class="user-name">{{ user.name }}</h3>
                         <p class="user-email">{{ user.email }}</p>
+
+                        <div class="edit-name">
+                            <ion-input placeholder="Nuevo nombre" [(ngModel)]="newName"></ion-input>
+                            <ion-button size="small" (click)="updateName()">GUARDAR</ion-button>
+                        </div>
+
+                        <div class="avatar-actions">
+                            <input #fileInput type="file" accept="image/*" style="display:none" (change)="onFileSelected($event)" />
+                            <ion-button size="small" fill="outline" (click)="fileInput.click()" [disabled]="avatarUploading">
+                                {{ avatarUploading ? 'SUBIENDO...' : 'CAMBIAR FOTO' }}
+                            </ion-button>
+                        </div>
                     </div>
                 </div>
             </ion-card>
         </div>
 
-        <!-- Opciones del Perfil -->
-        <div class="options-section">
-            <h2 class="section-title">Cuenta</h2>
-            <div class="options-list">
-                <ion-card class="option-card" *ngFor="let option of profileOptions" (click)="handleOption(option.action || '')">
-                    <div class="option-content">
-                        <ion-icon [name]="option.icon" class="option-icon"></ion-icon>
-                        <span class="option-title">{{ option.title }}</span>
-                        <ion-icon name="chevron-forward-outline" class="chevron-icon"></ion-icon>
+        <div class="tabs-section">
+            <ion-segment [value]="activeTab">
+                <ion-segment-button value="orders" (click)="selectTab('orders')">
+                    <ion-label>MIS PEDIDOS</ion-label>
+                </ion-segment-button>
+                <ion-segment-button value="about" (click)="selectTab('about')">
+                    <ion-label>NOSOTROS</ion-label>
+                </ion-segment-button>
+                <ion-segment-button value="logout" (click)="selectTab('logout')">
+                    <ion-label>SALIR</ion-label>
+                </ion-segment-button>
+            </ion-segment>
+
+            <div class="tab-content ion-padding">
+                <div *ngIf="activeTab === 'orders'">
+                    <ion-progress-bar *ngIf="loadingOrders" type="indeterminate"></ion-progress-bar>
+                    <div *ngIf="!loadingOrders && orders.length === 0" class="ion-text-center">
+                        <p>No hay pedidos aún.</p>
                     </div>
-                </ion-card>
+
+                    <ion-card *ngFor="let order of orders" class="order-card">
+                        <ion-card-header>
+                            <ion-card-subtitle>{{ order.createdAt | date:'short' }}</ion-card-subtitle>
+                            <ion-card-title>Total: S/. {{ order.total }}</ion-card-title>
+                        </ion-card-header>
+                        <ion-card-content>
+                            <p>Productos: {{ totalItems(order) }}</p>
+                        </ion-card-content>
+                    </ion-card>
+                </div>
+
+                <div *ngIf="activeTab === 'about'">
+                    <p>Visítanos en nuestra tienda física:</p>
+                    <div class="map-wrapper" style="border-radius: 12px; overflow: hidden;">
+                        <iframe width="100%" height="200" frameborder="0" style="border:0"
+                            src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d15606.31!2d-77.03!3d-12.04!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2spe!4v1" allowfullscreen>
+                        </iframe>
+                    </div>
+                </div>
+
+                <div *ngIf="activeTab === 'logout'" class="ion-text-center">
+                    <p>¿Seguro que deseas cerrar sesión?</p>
+                    <ion-button color="danger" expand="block" (click)="confirmLogout()">
+                        CERRAR SESIÓN
+                    </ion-button>
+                </div>
             </div>
         </div>
     </div>
 </ion-content>
 
-<!-- Navegación Inferior (Footer) -->
 <ion-footer class="ion-no-border">
-    <ion-toolbar>
-        <ion-tab-bar class="bottom-nav">
-            <ion-tab-button *ngFor="let item of navItems" (click)="navigate(item.route)"
-                [class.active]="item.route === activeRoute" [routerLink]="item.route">
-                <ion-icon [name]="item.icon"></ion-icon>
-                <ion-label *ngIf="item.label">{{ item.label }}</ion-label>
-                <ion-badge *ngIf="item.badge" color="danger">{{ item.badge }}</ion-badge>
-            </ion-tab-button>
-        </ion-tab-bar>
-    </ion-toolbar>
+    <ion-tab-bar class="bottom-nav">
+        <ion-tab-button *ngFor="let item of navItems" [routerLink]="item.route" routerLinkActive="active">
+            <ion-icon [name]="item.icon"></ion-icon>
+            <ion-label>{{ item.label }}</ion-label>
+        </ion-tab-button>
+    </ion-tab-bar>
 </ion-footer>

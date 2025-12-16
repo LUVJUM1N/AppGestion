@@ -13,16 +13,28 @@
   </ion-header>
 
   <!-- Métodos de pago -->
-  <div class="payment-methods">
-    <h3>Métodos de pago</h3>
-    <a href="#" class="view-more">Ver más</a>
-    <div class="method-icons">
-      <button class="method-btn yape-btn"></button>
-      <button class="method-btn visa-btn"></button>
-      <button class="method-btn p-btn"></button>
-      <button class="method-btn plin-btn"></button>
-    </div>
+<div class="payment-methods">
+  <h3>Métodos de pago</h3>
+  <a href="#" class="view-more">Ver más</a>
+
+  <div class="method-icons">
+    <button class="method-btn">
+      <img src="assets/icon/yape.png" alt="Yape">
+    </button>
+
+    <button class="method-btn">
+      <img src="assets/icon/visa.png" alt="Visa">
+    </button>
+
+    <button class="method-btn">
+      <img src="assets/icon/pagoefectivo.png" alt="PagoEfectivo">
+    </button>
+
+    <button class="method-btn">
+      <img src="assets/icon/plin.png" alt="Plin">
+    </button>
   </div>
+</div>
 
   <!-- Formulario de pago -->
   <form [formGroup]="paymentForm" (ngSubmit)="onSubmit()">
@@ -37,7 +49,7 @@
 
     <div class="form-group">
       <label for="cardNumber">Número de tarjeta</label>
-      <input id="cardNumber" type="text" placeholder="XXXX XXXX XXXX XXXX" formControlName="cardNumber" maxlength="19"
+      <input id="cardNumber" type="text" placeholder="XXXX XXXX XXXX XXXX" formControlName="cardNumber" maxlength="16"
         [class.is-invalid]="
           paymentForm.get('cardNumber')?.invalid &&
           paymentForm.get('cardNumber')?.touched
@@ -65,7 +77,7 @@
 
     <div class="total-section">
       <p class="total-label">Monto total:</p>
-      <p class="total-amount">S/.610</p>
+      <p class="total-amount">S/.{{ totalAmount }}</p>
     </div>
 
     <div class="checkbox-group">
@@ -73,8 +85,9 @@
       <label for="saveData">Guardar datos para futuras compras</label>
     </div>
 
-    <button type="submit" class="finalize-btn" [disabled]="paymentForm.invalid">
-      Finalizar
+    <button type="submit" class="finalize-btn" [disabled]="paymentForm.invalid || processing">
+      <span *ngIf="!processing">Finalizar</span>
+      <span *ngIf="processing">Procesando...</span>
     </button>
   </form>
 

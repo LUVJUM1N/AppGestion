@@ -3,39 +3,45 @@
     <ion-title>Mi pedido</ion-title>
     <!-- Botón con el avatar de perfil -->
     <ion-buttons slot="end">
-      <ion-avatar>
-        <img src="./assets/icon/perfil.png" />
+      <ion-avatar (click)="openProfile()" style="cursor:pointer">
+        <img [src]="avatarUrl" />
       </ion-avatar>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-list>
-    <!-- item del producto -->
-    <ion-item class="producto-item" *ngFor="let item of items">
-      <ion-thumbnail slot="start">
-        <img [src]="item.image" />
-      </ion-thumbnail>
+  <ng-container *ngIf="items.length > 0; else emptyCart">
+    <ion-list>
+      <!-- item del producto -->
+      <ion-item class="producto-item" *ngFor="let item of items">
+        <ion-thumbnail slot="start">
+          <img [src]="item.image" />
+        </ion-thumbnail>
 
-      <ion-label>
-        <h3>{{ item.name }}</h3>
-        <p>S/. {{ item.price | number: '1.2-2' }}</p>
-        <div class="quantity-controls">
-          <ion-icon name="add-circle-outline" (click)="increaseQuantity(item)"></ion-icon>
-          <span>{{ item.quantity }}</span>
-          <ion-icon name="remove-circle-outline" (click)="decreaseQuantity(item)"></ion-icon>
-        </div>
-      </ion-label>
+        <ion-label>
+          <h3>{{ item.name }}</h3>
+          <p>S/. {{ item.price | number: '1.2-2' }}</p>
+          <div class="quantity-controls">
+            <ion-icon name="add-circle-outline" (click)="increaseQuantity(item)"></ion-icon>
+            <span>{{ item.quantity }}</span>
+            <ion-icon name="remove-circle-outline" (click)="decreaseQuantity(item)"></ion-icon>
+          </div>
+        </ion-label>
 
-      <!-- Botón eliminar producto -->
-      <ion-button class="trashi" slot="end" fill="clear" color="danger" size="big"
-        (click)="$event.stopPropagation(); removeItem(item)">
-        <ion-icon name="trash-outline"></ion-icon>
-      </ion-button>
-    </ion-item>
-    
-  </ion-list>
+        <!-- Botón eliminar producto -->
+        <ion-button class="trashi" slot="end" fill="clear" color="danger" size="big"
+          (click)="$event.stopPropagation(); removeItem(item)">
+        <ion-icon name="close-circle"></ion-icon>
+        </ion-button>
+      </ion-item>
+      
+    </ion-list>
+  </ng-container>
+
+  <ng-template #emptyCart>
+    <div class="empty-cart" style="padding: 20px; text-align: center; color: #666;">No hay productos en el carrito.</div>
+  </ng-template>
 
   <!-- Descripción -->
   <ion-item>
@@ -63,7 +69,7 @@
 <!-- Botones de acción -->
 <ion-footer class="ion-no-border">
   <div class="footer-actions">
-    <ion-button expand="full" size="large" class="pay-button" (click)="goToPayment()">
+    <ion-button expand="full" size="large" class="pay-button" (click)="goToPayment()" [disabled]="totalAmount <= 0">
       Pagar
     </ion-button>
   </div>
@@ -71,8 +77,7 @@
   <!-- Barra de navegación inferior -->
   <ion-toolbar>
     <ion-tab-bar class="bottom-nav">
-      <ion-tab-button *ngFor="let item of navItems" (click)="navigate(item.route)"
-        [class.active]="item.route === activeRoute" [routerLink]="item.route">
+      <ion-tab-button *ngFor="let item of navItems" [routerLink]="item.route" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
         <ion-icon [name]="item.icon"></ion-icon>
         <ion-label *ngIf="item.label">{{ item.label }}</ion-label>
         <ion-badge *ngIf="item.badge" color="danger">{{ item.badge }}</ion-badge>

@@ -3,10 +3,15 @@
 ================================ */
 ion-header {
   --background: #ffffff;
+
   ion-title {
-    font-weight: 600;
-    color: #222;
+    font-size: 24px;
+    font-weight: 700;
+    color: #0d3c8d;
+    padding-left: 0;
+    margin-left: 15px;
   }
+
   ion-avatar img {
     width: 35px;
     height: 35px;
@@ -28,6 +33,7 @@ ion-content {
     ion-thumbnail {
       width: 70px;
       height: 70px;
+
       img {
         object-fit: contain;
       }
@@ -39,6 +45,7 @@ ion-content {
         font-weight: 600;
         color: #333;
       }
+
       p {
         color: #666;
         margin-top: 4px;
@@ -101,7 +108,7 @@ ion-content {
   .total-amount {
     font-weight: bold;
     font-size: 18px;
-    color: var(--ion-color-primary);
+    color: #ffa500;
   }
 }
 
@@ -109,20 +116,25 @@ ion-content {
   Botón de pago
 ================================ */
 .footer-actions {
-   padding-top: 8px;
-   display: flex;
-    justify-content: center;
-    border-radius: 12px;
+  padding-top: 8px;
+  display: flex;
+  justify-content: center;
+  border-radius: 12px;
 
   .pay-button {
     --background: linear-gradient(to right, #151277, #6a5acd);
-    --border-radius: 12px;
-    font-weight: 600;
+    border-radius: 100px;
+    font-weight: 500;
     text-transform: uppercase;
-    box-shadow: 10px 3px 10px rgba(0, 0, 0, 0.15);
-    
     width: calc(70% - 30px);
-      
+
+    color: rgb(255, 255, 255); //texto
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    padding: 12px 0px;
+
   }
 }
 
@@ -156,8 +168,9 @@ ion-content {
       top: 2px;
       right: 2px;
     }
-    .trashi{
-        color: red;
+
+    .trashi {
+      color: red;
     }
   }
 }

@@ -6,6 +6,18 @@
   border-radius: 10px;
   font-family: Arial, sans-serif;
 }
+ion-header {
+  ion-toolbar {
+    --background: var(--app-background);
+    padding: 0 16px;
+  }
+  .main-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #0d3c8d;
+    padding-left: 0;
+  }
+}
 
 h2 {
   font-size: 24px;
@@ -16,8 +28,8 @@ h2 {
 /* Payment Methods Section */
 .payment-methods {
   margin-bottom: 25px;
-  border-bottom: 1px solid #eee;
-  padding-bottom: 15px;
+  margin-left: 25px;
+  margin-right: 15px;
 }
 
 .payment-methods h3 {
@@ -27,7 +39,9 @@ h2 {
 }
 
 .view-more {
-  float: right;
+  position: absolute;
+  top: 85px;
+  right: 25px;
   text-decoration: none;
   color: #007bff;
   font-size: 14px;
@@ -35,35 +49,35 @@ h2 {
 
 .method-icons {
   display: flex;
-  gap: 15px;
-  margin-top: 15px;
+  gap: 25px;
+  margin-top: 25px;
 }
 
 .method-btn {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  border: 1px solid #ddd;
+  width: 70px;
+  height: 70px;
+  border-radius: 20%;
+  border: 7px solid #ddd;
   background-color: #f7f7f7;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  font-size: 10px; 
+  font-size: 15px; 
 }
 
 /* Form Styling */
 .form-group {
-  margin-bottom: 15px;
-  margin-left: 15px;
-  margin-right: 15px;
+  margin-bottom: 25px;
+  margin-left: 25px;
+  margin-right: 25px;
 }
 
 label {
   display: block;
-  font-size: 14px;
+  font-size: 16px;
   color: #333;
-  margin-bottom: 5px;
+  margin-bottom: 15px;
 }
 
 input[type='text'],
@@ -97,11 +111,11 @@ input::placeholder {
 
 .view-details {
   position: absolute;
-  top: 75px;
+  top: 85px;
   right: 0;
   text-decoration: none;
   color: #007bff;
-  font-size: 12px;
+  font-size: 14px;
 }
 
 /* Total Section */
@@ -109,9 +123,9 @@ input::placeholder {
   display: flex;
   justify-content: space-between;
   margin-top: 25px;
-  margin-bottom: 15px;
-  margin-left: 15px;
-  margin-right: 15px;
+  margin-bottom: 20px;
+  margin-left: 25px;
+  margin-right: 25px;
   align-items: center;
 }
 
@@ -122,7 +136,7 @@ input::placeholder {
 .total-amount {
   font-weight: bold;
   color: #ffa500; 
-  font-size: 18px;
+  font-size: 20px;
 }
 
 /* Checkbox */
@@ -131,36 +145,40 @@ input::placeholder {
   display: flex;
   align-items: center;
   font-size: 14px;
-  margin-left: 15px;
+  margin-left: 25px;
 }
 
 .checkbox-group input {
-  margin-right: 10px;
+  margin-right: 15px;
   width: 16px;
   height: 16px;
+  margin-bottom: auto;
 }
 
 /* Finalize Button */
 .finalize-btn {
-  width: 100%;
-  padding: 15px;
+  width: 90%;
+  padding: 20px;
   background: linear-gradient(to right, #151277, #6a5acd); 
   color: rgb(255, 255, 255); //texto
   border: none;
-  border-radius: 10px;
-  font-size: 18px;
+  border-radius: 15px;
+  font-size: 20px;
   font-weight: bold;
   cursor: pointer;
   transition: background-color 0.3s;
+  margin-left: 25px;
+  margin-right: 25px;
 }
 
 .finalize-btn:disabled {
   background: #b6bbf1;
   cursor: not-allowed;
   margin-right: 15px;
+  margin-left: 15px;
 }
 
-.back-to-menu {
+.return-button {
   display: block;
   text-align: center;
   margin-top: 50px;
@@ -169,8 +187,6 @@ input::placeholder {
   font-size: 12px;
   text-transform: capitalize;
 }
-
-
 .is-invalid {
   border-color: #a20f1e !important;
 }
