@@ -1,16 +1,16 @@
 import { addIcons } from 'ionicons'; // registrar iconos
-import { star, starOutline } from 'ionicons/icons';
+import { star, starOutline, arrowBack, cart } from 'ionicons/icons';
 
 // Registrar iconos locales para esta página
-addIcons({ star, starOutline });
+addIcons({ star, starOutline, arrowBack, cart });
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
-  IonContent, IonHeader, IonTitle, IonToolbar,
+  IonContent, IonHeader, IonTitle, IonToolbar, IonButtons,
   IonButton, IonIcon, IonImg
 } from '@ionic/angular/standalone';
-import { ActivatedRoute, Router } from '@angular/router'; // Necesitas importar 'ActivatedRoute'
+import { ActivatedRoute, Router } from '@angular/router'; // Necesitas importar 'ActivatedRoute' 
 import { ToastController } from '@ionic/angular';
 
 @Component({
@@ -18,7 +18,7 @@ import { ToastController } from '@ionic/angular';
   templateUrl: './producto.page.html',
   styleUrls: ['./producto.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule,
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, IonButtons, CommonModule, FormsModule,
     IonButton, IonIcon, IonImg
   ]
 })
