@@ -66,9 +66,12 @@
                 <div *ngIf="activeTab === 'about'">
                     <p>Visítanos en nuestra tienda física:</p>
                     <div class="map-wrapper" style="border-radius: 12px; overflow: hidden;">
-                        <iframe width="100%" height="200" frameborder="0" style="border:0"
-                            src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d15606.31!2d-77.03!3d-12.04!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2spe!4v1" allowfullscreen>
-                        </iframe>
+                        <!-- Embedded map centered on MECÁNICA INDUSTRIAL ANGEL SAC -->
+                        <iframe width="100%" height="250" frameborder="0" style="border:0"
+                            src="https://www.google.com/maps?q=-11.9111311,-77.0127372&z=19&output=embed" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                    <div class="map-actions" style="margin-top: 0.5rem;">
+                        <ion-button fill="outline" expand="block" (click)="openMaps()">Abrir en Google Maps</ion-button>
                     </div>
                 </div>
 

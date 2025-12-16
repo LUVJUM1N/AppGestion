@@ -160,6 +160,18 @@ export class PerfilPage implements OnInit {
     return (order.items || []).reduce((acc: number, it: any) => acc + (it.quantity || 0), 0);
   }
 
+  // URL de la ubicación solicitada (abre en Google Maps)
+  mapUrl: string = 'https://www.google.com/maps/place/MEC%C3%81NICA+INDUSTRIAL+ANGEL+SAC/@-11.9112807,-77.0133487,19z/data=!4m6!3m5!1s0x9105d1e3b76c514f:0xf06dc8223e8d61f5!8m2!3d-11.9111311!4d-77.0127372!16s%2Fg%2F11x7n51lf1!5m1!1e1?entry=ttu&g_ep=EgoyMDI1MTIwOS4wIKXMDSoKLDEwMDc5MjA3M0gBUAM%3D';
+
+  openMaps() {
+    try {
+      window.open(this.mapUrl, '_blank');
+    } catch (e) {
+      console.warn('No se pudo abrir el enlace de Maps', e);
+      this.presentToast('No se pudo abrir Google Maps', 'danger');
+    }
+  }
+
   private async presentToast(message: string, color: string) {
     const t = await this.toastController.create({ message, duration: 2000, color: color as any });
     await t.present();
